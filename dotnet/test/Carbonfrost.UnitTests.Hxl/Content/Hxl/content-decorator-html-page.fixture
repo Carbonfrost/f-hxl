@@ -1,0 +1,33 @@
+﻿master.hxl: >
+    <html>
+        <head>
+            <link rel="a" />
+        </head>
+        <body>
+            <div class="a" hxl:placeholder="header"> </div>
+            <div class="b" hxl:placeholder="footer"> </div>
+        </body>
+    </html>
+    
+input.hxl: >
+    <html hxl:layout="content_decorator_html_page_fixture_master_hxl">
+        <head>
+            <link rel="b" />
+        </head>
+        <body>
+            <div hxl:placeholdertarget="header">head</div>
+            <div hxl:placeholdertarget="footer">foot</div>
+        </body>
+    </html>
+
+generated.html: >
+    <html data-layout="content_decorator_html_page_fixture_master_hxl">
+        <head>
+            <link rel="a" />
+            <link rel="b" />
+        </head>
+        <body>
+            <div class="a app-placeholder" data-placeholder="header" data-layout="content_decorator_html_page_fixture_master_hxl">head</div>
+            <div class="b app-placeholder" data-placeholder="footer" data-layout="content_decorator_html_page_fixture_master_hxl">foot</div>
+        </body>
+    </html>

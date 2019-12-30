@@ -1,0 +1,18 @@
+﻿master.hxl: >
+    <!doctype html>
+    <html>
+        <head> <title hxl:placeholdertarget="title"> Default title </title> </head>
+        <body> A </body>
+    </html>
+    
+input.hxl: >
+    <!doctype html>
+    <html hxl:layout="content_decorator_base_reuse_fixture_master_hxl">
+    </html>
+
+generated.html: >
+    <!doctype html>
+    <html data-layout="content_decorator_base_reuse_fixture_master_hxl">
+        <head> <title> Default title </title> </head>
+        <body> A </body>
+    </html>

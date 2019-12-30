@@ -1,0 +1,29 @@
+﻿master.hxl: >
+    <html hxl:layout="content_decorator_title_placeholders_fixture_base_hxl">
+        <head></head>
+        <body></body>
+    </html>
+    
+base.hxl: >
+    <html>
+        <head>
+            <title hxl:placeholder="title"></title>
+        </head>
+        <body></body>
+    </html>
+
+input.hxl: >
+    <html hxl:layout="content_decorator_title_placeholders_fixture_master_hxl">
+        <head>
+            <title hxl:placeholdertarget="title"> A</title>
+        </head>
+        <body></body>
+    </html>
+
+generated.html: >
+    <html data-layout="content_decorator_title_placeholders_fixture_base_hxl">
+        <head>
+            <title class="app-placeholder" data-placeholder="title" data-layout="content_decorator_title_placeholders_fixture_master_hxl"> A</title>
+        </head>
+        <body></body>
+    </html>

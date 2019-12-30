@@ -1,0 +1,19 @@
+﻿input.hxl: >
+    <div>
+        <div c:t="language_t_construct_fixture_template_hxl"></div>
+    </div>
+
+template.hxl: >
+    <div>
+        template
+    </div>
+    
+output.cs: >
+    SetElementTemplate
+
+generated.html: >
+    <div>
+        <div>
+            template
+        </div>
+    </div>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../Build.props" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>hxlc</RootNamespace>
+    <OutputType>Exe</OutputType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Copyright>Copyright 2010-2019 Carbonfrost Systems, Inc.</Copyright>
+    <Authors>Carbonfrost</Authors>
+    <Description>
+      A compiler for HXL
+    </Description>
+    <PackageProjectUrl>https://github.com/Carbonfrost/f-hxl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Carbonfrost/f-hxl</RepositoryUrl>
+    <PackAsTool>true</PackAsTool>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Carbonfrost.Commons.Hxl\Carbonfrost.Commons.Hxl.csproj" />
+  </ItemGroup>
+</Project>

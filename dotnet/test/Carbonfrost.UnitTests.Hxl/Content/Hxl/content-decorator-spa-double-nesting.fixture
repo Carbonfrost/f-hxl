@@ -1,0 +1,57 @@
+﻿inner.hxl: >
+    <html hxl:layout="content_decorator_spa_double_nesting_fixture_outer_hxl">
+        <head>
+            <title hxl:placeholdertarget="title"> 
+                Inner title 
+            </title>
+        </head>
+        <body class="in" hxl:placeholdertarget="p"> 
+            IN $transparent <a hxl:placeholder="a"> </a>
+        </body>
+    </html>
+
+outer.hxl: >
+    <html>
+        <head>
+            <title hxl:placeholder="title"> 
+                Outer title 
+            </title>
+        </head>
+        <body hxl:placeholder="p" class="ou"> 
+            ON 
+        </body>
+        <body hxl:placeholder="q"> 
+            OM $transparent 
+        </body>
+    </article>
+
+input.hxl: >
+    <html hxl:layout="content_decorator_spa_double_nesting_fixture_inner_hxl">
+        <head>
+            <title hxl:placeholdertarget="title" class="put"> 
+                A 
+            </title>
+        </head>
+        <a hxl:placeholdertarget="a"> 
+            K
+        </a>
+    </html>
+
+data.properties: >
+    transparent=all
+
+generated.html: >
+    <fragment name="title" location="-"> 
+        <title class="put app-placeholder" data-placeholder="title" data-layout="content_decorator_spa_double_nesting_fixture_inner_hxl"> A </title></fragment>
+    <fragment name="p" location="-"> 
+        <body class="ou in app-placeholder" data-placeholder="p" data-layout="content_decorator_spa_double_nesting_fixture_outer_hxl">
+            IN all <a data-placeholder="a"></a>
+        </body></fragment>
+    <fragment name="a" location="-"> 
+        <a class="app-placeholder" data-placeholder="a" data-layout="content_decorator_spa_double_nesting_fixture_outer_hxl">
+            K 
+        </a></fragment>
+    <fragment name="q" location="-"> 
+        <body class="app-placeholder" data-placeholder="q" data-layout="content_decorator_spa_double_nesting_fixture_outer_hxl">
+            OM all 
+        </body></fragment>

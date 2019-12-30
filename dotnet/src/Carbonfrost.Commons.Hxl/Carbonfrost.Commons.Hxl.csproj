@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../Build.props" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Carbonfrost.Commons.Hxl</RootNamespace>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Copyright>Copyright 2013-2016, 2020 Carbonfrost Systems, Inc.</Copyright>
+    <Authors>Carbonfrost</Authors>
+    <Description>
+      HXL: a design language for HTML
+    </Description>
+    <PackageProjectUrl>https://github.com/Carbonfrost/f-hxl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Carbonfrost/f-hxl</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Carbonfrost.Commons.Core" Version="0.2.1" />
+    <PackageReference Include="Carbonfrost.Commons.Core.Runtime.Expressions" Version="0.1.0" />
+    <PackageReference Include="Carbonfrost.Commons.Web.Dom" Version="0.1.0" />
+    <PackageReference Include="Carbonfrost.Commons.Html" Version="0.1.0" />
+    <PackageReference Include="Carbonfrost.Commons.PropertyTrees" Version="0.1.0" />
+    <PackageReference Include="Carbonfrost.Commons.Instrumentation" Version="0.1.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.1.0" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,13 @@
+﻿input.hxl: >
+    <c:if test="true">
+        true
+    </c:if>
+    <c:if test="false">
+        false
+    </c:if>    
+
+output.cs: >
+    ;
+
+generated.html: >
+    true

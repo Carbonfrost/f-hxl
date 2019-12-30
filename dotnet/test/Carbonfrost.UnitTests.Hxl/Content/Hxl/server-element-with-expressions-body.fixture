@@ -1,0 +1,12 @@
+﻿input.hxl: >
+    <div>
+        <test:example a="${inside}" b="420">
+            <em>body content</em>
+        </test:example>
+    </div>
+    
+data.properties: >
+    inside=man
+
+generated.html: >
+    <div> example: man 420 <em>body content</em> </div>

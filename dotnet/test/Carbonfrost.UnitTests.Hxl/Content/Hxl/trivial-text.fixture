@@ -1,0 +1,8 @@
+﻿input.hxl: >
+    H&egrave;llo, world!
+
+output.cs: >
+    __self.Write("H&egrave;llo, world!");
+
+generated.html: >
+    H&egrave;llo, world!

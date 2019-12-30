@@ -1,0 +1,13 @@
+﻿input.hxl: >
+    <?using namespace="System.Linq" ?>
+    <!-- Linq Reverse() rather than Array.Reverse() -->
+    <p>${::Enumerable.Reverse(this.Data.hello)}</p>
+
+output.cs: >
+    ;
+
+data.properties: >
+    hello=[a,bb,c,dd,e]
+
+generated.html: >
+    <p>eddcbba</p>

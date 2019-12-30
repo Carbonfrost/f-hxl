@@ -1,0 +1,11 @@
+﻿input.hxl: >
+    <p>$hello</p>
+
+output.cs: >
+    ;
+
+data.properties: >
+    hello=World
+
+generated.html: >
+    <p>World</p>

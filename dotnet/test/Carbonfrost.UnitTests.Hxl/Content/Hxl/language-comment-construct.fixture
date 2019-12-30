@@ -1,0 +1,9 @@
+﻿input.hxl: >
+    <div>
+        <c:comment>Hello</c:comment>
+    </div>
+
+generated.html: >
+    <div>
+        <!--Hello-->
+    </div>

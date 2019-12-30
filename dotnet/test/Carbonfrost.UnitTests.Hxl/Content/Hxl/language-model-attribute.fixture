@@ -1,0 +1,10 @@
+﻿input.hxl: >
+    <?model type="System.Uri" />
+    <div>
+    </div> 
+
+output.cs: >
+    ;
+
+generated.html: >
+    <li>  f  </li><li>  f  </li><li>  f  </li><li>  f  </li><li>  f  </li>
