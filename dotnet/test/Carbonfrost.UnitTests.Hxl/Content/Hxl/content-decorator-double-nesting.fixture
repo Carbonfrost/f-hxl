@@ -1,0 +1,49 @@
+﻿inner.hxl: >
+    <html hxl:layout="content_decorator_double_nesting_fixture_outer_hxl">
+        <head>
+            <title hxl:placeholdertarget="title"> 
+                Inner title 
+            </title>
+        </head>
+        <body class="in" hxl:placeholdertarget="p"> 
+            IN $transparent
+        </body>
+    </html>
+
+outer.hxl: >
+    <html>
+        <head>
+            <title hxl:placeholder="title"> 
+                Outer title 
+            </title>
+        </head>
+        <body hxl:placeholder="p" class="ou"> 
+            ON 
+        </body>
+        <body hxl:placeholder="q"> 
+            OM $transparent 
+        </body>
+    </article>
+
+input.hxl: >
+    <html hxl:layout="content_decorator_double_nesting_fixture_inner_hxl">
+        <head>
+            <title hxl:placeholdertarget="title" class="put"> 
+                A 
+            </title>
+        </head>
+    </html>
+
+data.properties: >
+    transparent=all
+
+generated.html: >
+    <html data-layout="content_decorator_double_nesting_fixture_outer_hxl">
+        <head> <title class="put app-placeholder" data-placeholder="title" data-layout="content_decorator_double_nesting_fixture_inner_hxl"> A </title> </head> 
+        <body class="ou in app-placeholder" data-placeholder="p" data-layout="content_decorator_double_nesting_fixture_outer_hxl"> 
+            IN all
+        </body>
+        <body class="app-placeholder" data-placeholder="q" data-layout="content_decorator_double_nesting_fixture_outer_hxl"> 
+            OM all 
+        </body>
+    </html>

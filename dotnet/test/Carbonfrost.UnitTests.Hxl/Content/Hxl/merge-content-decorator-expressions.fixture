@@ -1,0 +1,28 @@
+﻿data.properties: >-
+    inside=man
+    hello=world
+    hi=earth
+
+master.hxl: >
+    <article id="$inside">
+        <h1>Greetings</h1>
+        <div class="$hello" id="$hello" hxl:placeholder="body"></div>
+    </article>
+    
+input.hxl: >
+    <article class="$hi" hxl:layout="merge_content_decorator_expressions_fixture_master_hxl">
+        <div class="$hi" name="$hi" hxl:placeholdertarget="body">
+            H&egrave;llo, world
+        </div>
+    </article>
+
+generated.html: >
+    <article id="man" class="earth" data-layout="merge_content_decorator_expressions_fixture_master_hxl">
+        <h1>Greetings</h1>
+        <div id="world" name="earth" class="world earth app-placeholder" data-placeholder="body" data-layout="merge_content_decorator_expressions_fixture_master_hxl">
+            H&egrave;llo, world
+        </div>
+    </article>
+    
+output.cs: >
+    __self.Write(" H&egrave;llo, world ");

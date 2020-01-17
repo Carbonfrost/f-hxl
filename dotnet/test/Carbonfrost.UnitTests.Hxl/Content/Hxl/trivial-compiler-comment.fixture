@@ -1,0 +1,12 @@
+﻿data.properties: >
+    legume=beans
+    
+input.hxl: >
+    <div>
+        <c:comment>Cool $legume</c:comment>
+    </div>
+
+generated.html: >
+    <div>
+        <!--Cool beans-->
+    </div>

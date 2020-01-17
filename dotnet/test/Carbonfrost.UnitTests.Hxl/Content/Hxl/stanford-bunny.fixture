@@ -1,0 +1,39 @@
+﻿input.hxl: >
+    <?model type="System.Uri" ?>
+    <html lang="en" dir="ltr">
+        <head>
+            <title>$host Site</title>
+        </head>
+        <body class="a b c">
+            <p c:unless="inside">
+                <em c:if="true"> cool </em>
+                <ul>
+                    <li c:foreach.item="items"> $item.name </li>
+                </ul>
+            </p>
+            <a href=""></a>
+        </body>
+    </html>    
+
+output.cs: >
+    ;
+
+data.properties: >
+    inside=true
+
+generated.html: >
+    <?model type="System.Uri" ?>
+    <html lang="en" dir="ltr">
+        <head>
+            <title>$host Site</title>
+        </head>
+        <body class="a b c">
+            <p c:unless="inside">
+                <em c:if="true"> cool </em>
+                <ul>
+                    <li c:foreach.item="items"> $item.name </li>
+                </ul>
+            </p>
+            <a href=""></a>
+        </body>
+    </html>

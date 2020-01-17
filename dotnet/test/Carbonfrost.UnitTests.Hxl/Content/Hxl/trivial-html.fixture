@@ -1,0 +1,18 @@
+﻿input.hxl: >
+    <!doctype html>
+    <p>
+        Hello, <em>world!</em>
+        <meta hxl:charset="" />
+        <input type="text" /> <img /> <br />
+    </p>
+
+output.cs: >
+    ;
+
+generated.html: >
+    <!doctype html>
+    <p>
+        Hello, <em>world!</em>
+        <meta charset="" />
+        <input type="text" /> <img /> <br />
+    </p>

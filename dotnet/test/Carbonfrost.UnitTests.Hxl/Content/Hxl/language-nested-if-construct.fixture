@@ -1,0 +1,12 @@
+﻿input.hxl: >
+    <li c:for.t="5">
+        <c:if test="true">
+            f
+        </c:if>
+    </li>    
+
+output.cs: >
+    ;
+
+generated.html: >
+    <li>  f  </li><li>  f  </li><li>  f  </li><li>  f  </li><li>  f  </li>

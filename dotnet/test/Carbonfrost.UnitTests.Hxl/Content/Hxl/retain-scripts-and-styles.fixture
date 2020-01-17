@@ -1,0 +1,10 @@
+﻿input.hxl: >
+    <script>$(function() { a & b > c };</script>
+    <style>a$b {}</style>
+
+output.cs: >
+    __self.Write("$(function() { a & b > c };");
+
+generated.html: >
+    <script>$(function() { a & b > c };</script>
+    <style>a$b {}</style>

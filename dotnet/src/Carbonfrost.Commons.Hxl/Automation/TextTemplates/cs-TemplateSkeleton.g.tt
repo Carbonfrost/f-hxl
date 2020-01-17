@@ -1,0 +1,75 @@
+<#@ template language="C#" inherits="*/ partial class CSTemplateGenerator : TemplateBase" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System; /*" #>
+
+// File automatically generated at <#= DateTime.Now #>
+namespace <#= this.Namespace #> {
+
+using System;
+using System.Linq;
+using Carbonfrost.Commons.Hxl;
+<# foreach (var u in this.Usings) { #>
+using <#= u #>;
+<# } #>
+
+    [global::System.CodeDom.Compiler.GeneratedCode("<#= this.CodeGenerator #>", "<#= this.CodeGeneratorVersion #>")]
+    [global::Carbonfrost.Commons.Hxl.HxlTemplate(Name = "<#= this.TemplateName #>")]
+    partial class <#= this.ClassName #>
+        : global::<#= this.BaseClass #>
+<# if (this.HasDocument) { #>
+          , global::Carbonfrost.Commons.Hxl.IHxlDocumentAccessor
+<# } #>
+    {
+
+<# if (this.HasDocument) { #>
+        private global::Carbonfrost.Commons.Hxl.HxlDocument __document;
+
+        global::Carbonfrost.Commons.Hxl.HxlDocument global::Carbonfrost.Commons.Hxl.IHxlDocumentAccessor.Document {
+            get {
+                if (!this.IsInitialized)
+                    this.Initialize();
+
+                return this.__document;
+            }
+        }
+<# } #>
+
+        private void InitializeComponent() {
+<# if (this.InitializeComponent.Length > 0) { #>
+            var __self = this;
+<# } #>
+
+<# if (this.HasDocument) { #>
+            this.__document = new global::Carbonfrost.Commons.Hxl.HxlDocument();
+<# } #>
+
+        <# foreach (var decl in this.DomNodeVariables) { #>
+            global::Carbonfrost.Commons.Web.Dom.DomNode @<#= decl #>;
+        <# } #>
+        <# foreach (var decl in this.DomObjectVariables) { #>
+            global::Carbonfrost.Commons.Web.Dom.DomObject @<#= decl #>;
+        <# } #>
+
+            <#= this.InitializeComponent #>
+        }
+
+        <#= this.RenderIslands #>
+
+        protected override void TransformTextCore() {
+<# if (this.TransformTextCore.Length > 0) { #>
+            var __self = this;
+<# } #>
+<# if (this.HasDocument) { #>
+            this.__document.WriteTo(this.Output, this.TemplateContext);
+<# } else { #>
+            dynamic __closure = this.TemplateContext;
+<# } #>
+            <#= this.TransformTextCore #>
+        }
+
+        protected override void InitializeCore() {
+            base.InitializeCore();
+            this.InitializeComponent();
+        }
+    }
+}

@@ -1,0 +1,14 @@
+﻿input.hxl: >
+    <div hxl:features="cool abc">
+        $features
+        <span hxl:feature="def"> m </span>
+        <span hxl:feature="abc"> n </span>
+    </div>
+
+output.cs: >
+    ;
+
+generated.html: >
+    <div>
+        cool abc <span> n </span>
+    </div>

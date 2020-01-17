@@ -1,0 +1,8 @@
+﻿input.hxl: >
+    <p>${::DateTime.MinValue.Year}</p>
+
+output.cs: >
+    ;
+
+generated.html: >
+    <p>1</p>

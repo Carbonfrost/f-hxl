@@ -1,0 +1,20 @@
+﻿master.hxl: >
+    <article>
+        <h1>Greetings</h1>
+        <div hxl:placeholder="body"></div>
+    </article>
+    
+input.hxl: >
+    <div hxl:layout="trivial_content_decorator_fixture_master_hxl">
+        <div hxl:placeholdertarget="body">
+            Hello, world
+        </div>
+    </div>
+
+generated.html: >
+    <article data-layout="trivial_content_decorator_fixture_master_hxl">
+        <h1>Greetings</h1>
+        <div class="app-placeholder" data-placeholder="body" data-layout="trivial_content_decorator_fixture_master_hxl">
+            Hello, world
+        </div>
+    </article>

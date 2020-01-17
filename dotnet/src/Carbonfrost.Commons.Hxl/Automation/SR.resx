@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, srgen, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, srgen, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </resheader>
+  <data name="AssemblyIsReflectionOnly" xml:space="preserve">
+    <value>Assembly is loaded into the reflection-only context and cannot be used.</value>
+  </data>
+  <data name="CannotCreateAttributeOnConversion" xml:space="preserve">
+    <value>Attribute `{0}': Could not convert from text or invalid.</value>
+  </data>
+  <data name="CannotFindMatchingTemplate" xml:space="preserve">
+    <value>Cannot find a matching template: `{0}' ({1})</value>
+  </data>
+  <data name="CannotLoadAnyMasterTemplates" xml:space="preserve">
+    <value>Template context does not support loading masters.</value>
+  </data>
+  <data name="CannotLoadMasterTemplate" xml:space="preserve">
+    <value>Cannot load master template with name `{0}'.</value>
+  </data>
+  <data name="CannotSpecifyNameArgumentWithPosition" xml:space="preserve">
+    <value>Cannot specify the name argument with the given position type.</value>
+  </data>
+  <data name="CannotUseBuiltinPrefixes" xml:space="preserve">
+    <value>Prefix cannot be one of the built-in prefixes.</value>
+  </data>
+  <data name="CompiledWithErrors" xml:space="preserve">
+    <value>Compilation of source code failed with errors, which have been saved to `{0}'.</value>
+  </data>
+  <data name="DirectiveNotDefined" xml:space="preserve">
+    <value>Directive not defined: {0}</value>
+  </data>
+  <data name="FailedToReadServerElement" xml:space="preserve">
+    <value>Parse failure on server element (${type).</value>
+  </data>
+  <data name="InvalidDirective" xml:space="preserve">
+    <value>Invalid syntax for a directive.</value>
+  </data>
+  <data name="InvalidToWriteTextOutput" xml:space="preserve">
+    <value>Can't write output to text at this time.</value>
+  </data>
+  <data name="LineInfo" xml:space="preserve">
+    <value>Line {0}, pos {1}</value>
+  </data>
+  <data name="MustSpecifyNameArgumentWithPosition" xml:space="preserve">
+    <value>Name argument must be specified with the given position type.</value>
+  </data>
+  <data name="NoMatchingServerAttribute" xml:space="preserve">
+    <value>No server attribute could be found for `{0}'</value>
+  </data>
+  <data name="NoMatchingServerElement" xml:space="preserve">
+    <value>No server element could be found for `{0}'</value>
+  </data>
+  <data name="NotValidVariableName" xml:space="preserve">
+    <value>Not a valid name for a variable: {0}</value>
+  </data>
+  <data name="PrefixAlreadyDefined" xml:space="preserve">
+    <value>Prefix has already been defined: {0}</value>
+  </data>
+  <data name="PrefixDoesNotMapToNamespace" xml:space="preserve">
+    <value>Prefix does not map to a namespace: {0}</value>
+  </data>
+  <data name="ServerAttributeCannotBeCreated" xml:space="preserve">
+    <value>Attribute `{0}': No type could be found for the server attribute.</value>
+  </data>
+  <data name="ServerAttributePropertyNotFound" xml:space="preserve">
+    <value>Server attribute `{0}' does not define a matching property `{1}'.</value>
+  </data>
+  <data name="ServerElementCannotBeCreated" xml:space="preserve">
+    <value>Element `{0}': No type could be found for the server element.</value>
+  </data>
+</root>

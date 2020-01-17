@@ -1,0 +1,20 @@
+﻿master.hxl: >
+    <article id="root" class="a" name="c">
+        <h1>Greetings</h1>
+        <div class="body" id="cl" name="a" hxl:placeholder="body"></div>
+    </article>
+    
+input.hxl: >
+    <article class="other" name="d" hxl:layout="merge_content_decorator_fixture_master_hxl">
+        <div class="work" name="b" hxl:placeholdertarget="body">
+            Hello, world
+        </div>
+    </article>
+
+generated.html: >
+    <article id="root" class="a other" name="d" data-layout="merge_content_decorator_fixture_master_hxl">
+        <h1>Greetings</h1>
+        <div class="body work app-placeholder" id="cl" name="b" data-placeholder="body" data-layout="merge_content_decorator_fixture_master_hxl">
+            Hello, world
+        </div>
+    </article>
