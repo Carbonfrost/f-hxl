@@ -162,10 +162,9 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
                 Assert.Fail("One or more compiler errors: {0}", allErrors.First());
             }
 
-            // UNDONE This is needed to support the load context used by fspec
-            Assembly = ((Carbonfrost.Commons.Shared.AssemblyInfo) Carbonfrost.Commons.Shared.Runtime.Components.RuntimeComponent.Load(
-                "assembly", new Uri("file://" + results.PathToAssembly)
-            )).Assembly;
+            Assembly = System.Runtime.Loader.AssemblyLoadContext.Default.LoadFromAssemblyPath(
+                results.PathToAssembly
+            );
 
             ExpectedHtml = myFixture["generated.html"];
             CompilerErrors = results.Errors;

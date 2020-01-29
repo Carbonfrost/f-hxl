@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+#
+# Development utility to execute `hxlc'.  This script builds the code
+# before running, which is designed to let you tweak the code under development
+# and rapidly re-run the command.
+#
+# Environment variables:
+#
+# DOTNET_OPTIONS    Specifies options to dotnet
+# HXLC_OPTIONS      Specifies options to hxlc
+# BUILD_FIRST       If specified, then a build will occur before running hxlc
+#
+
+set -e
+
+project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+source "$project_dir/eng/helpers.bash"
+
+_build_first hxlc
+_exec hxlc "$*"

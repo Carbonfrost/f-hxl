@@ -6,6 +6,10 @@ dotnet/generate:
 		-r Carbonfrost.Commons.Hxl.Automation.SR \
 		--resx \
 		dotnet/src/Carbonfrost.Commons.Hxl/Automation/SR.properties
+	srgen -c Hxlc.Resources.SR \
+		-r Hxlc.Resources.SR \
+		--resx \
+		dotnet/src/hxlc/Automation/SR.properties
 	/bin/sh -c "t4 -c Carbonfrost.Commons.Hxl.Compiler.ClassName dotnet/src/Carbonfrost.Commons.Hxl/Automation/TextTemplates/cs-TemplateFactorySkeleton.g.tt -o dotnet/src/Carbonfrost.Commons.Hxl/Automation/TextTemplates/cs-TemplateFactorySkeleton.g.cs"
 	/bin/sh -c "t4 -c Carbonfrost.Commons.Hxl.Compiler.ClassName dotnet/src/Carbonfrost.Commons.Hxl/Automation/TextTemplates/cs-TemplateSkeleton.g.tt -o dotnet/src/Carbonfrost.Commons.Hxl/Automation/TextTemplates/cs-TemplateSkeleton.g.cs"
 

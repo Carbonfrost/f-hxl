@@ -20,117 +20,117 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             this.GenerationEnvironment = null;
             
             #line 4 ""
-            this.Write("\n#pragma warning disable CS8019\n#pragma warning disable 8019\n\nusing System;\nusing" +
-                    " System.Linq;\nusing Carbonfrost.Commons.Hxl;\n\n[assembly: global::Carbonfrost.Com" +
-                    "mons.Hxl.HxlTemplateFactoryAttribute(typeof(");
+            this.Write("\n#pragma warning disable CS8019\n\nusing System;\nusing System.Linq;\nusing Carbonfro" +
+                    "st.Commons.Hxl;\n\n[assembly: global::Carbonfrost.Commons.Hxl.HxlTemplateFactoryAt" +
+                    "tribute(typeof(");
             
             #line default
             #line hidden
             
-            #line 12 ""
+            #line 11 ""
             this.Write(this.ToStringHelper.ToStringWithCulture( this.ClassName ));
             
             #line default
             #line hidden
             
-            #line 12 ""
+            #line 11 ""
             this.Write("))]\n\nnamespace ");
             
             #line default
             #line hidden
             
-            #line 14 ""
+            #line 13 ""
             this.Write(this.ToStringHelper.ToStringWithCulture( this.Namespace ));
             
             #line default
             #line hidden
             
-            #line 14 ""
+            #line 13 ""
             this.Write(" {\n\n    [global::System.CodeDom.Compiler.GeneratedCode(\"");
             
             #line default
             #line hidden
             
-            #line 16 ""
+            #line 15 ""
             this.Write(this.ToStringHelper.ToStringWithCulture( this.CodeGenerator ));
             
             #line default
             #line hidden
             
-            #line 16 ""
+            #line 15 ""
             this.Write("\", \"");
             
             #line default
             #line hidden
             
-            #line 16 ""
+            #line 15 ""
             this.Write(this.ToStringHelper.ToStringWithCulture( this.CodeGeneratorVersion ));
             
             #line default
             #line hidden
             
-            #line 16 ""
+            #line 15 ""
             this.Write("\")]\n    partial class ");
             
             #line default
             #line hidden
             
-            #line 17 ""
+            #line 16 ""
             this.Write(this.ToStringHelper.ToStringWithCulture( this.ClassName ));
             
             #line default
             #line hidden
             
-            #line 17 ""
+            #line 16 ""
             this.Write(" : global::Carbonfrost.Commons.Hxl.HxlTemplateFactory {\n\n        public override " +
                     "HxlTemplate GetTemplate(string name) {\n            switch (name) {\n");
             
             #line default
             #line hidden
             
-            #line 21 ""
+            #line 20 ""
  foreach (var templ in this.Templates) { 
             
             #line default
             #line hidden
             
-            #line 22 ""
+            #line 21 ""
             this.Write("                case \"");
             
             #line default
             #line hidden
             
-            #line 22 ""
+            #line 21 ""
             this.Write(this.ToStringHelper.ToStringWithCulture( templ.Name ));
             
             #line default
             #line hidden
             
-            #line 22 ""
+            #line 21 ""
             this.Write("\":\n                    return typeof(global::");
             
             #line default
             #line hidden
             
-            #line 23 ""
+            #line 22 ""
             this.Write(this.ToStringHelper.ToStringWithCulture( templ.GeneratedClass ));
             
             #line default
             #line hidden
             
-            #line 23 ""
+            #line 22 ""
             this.Write(");\n");
             
             #line default
             #line hidden
             
-            #line 24 ""
+            #line 23 ""
  } 
             
             #line default
             #line hidden
             
-            #line 25 ""
+            #line 24 ""
             this.Write("            }\n\n            return null;\n        }\n    }\n}\n");
             
             #line default

@@ -2,6 +2,8 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System; /*" #>
 
+#pragma warning disable CS8019
+
 // File automatically generated at <#= DateTime.Now #>
 namespace <#= this.Namespace #> {
 
