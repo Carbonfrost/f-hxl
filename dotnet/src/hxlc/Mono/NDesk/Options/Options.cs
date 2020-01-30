@@ -39,7 +39,7 @@
 //  - The current option requires a value (i.e. not a Option type of ':')
 //
 // The `name' used in the option format string does NOT include any leading
-// option indicator, such as '-', '--', or '/'.  All three of these are
+// option indicator, such as '-' or '--'.  All three of these are
 // permitted/required on any named option.
 //
 // Option bundling is permitted so long as:
@@ -61,10 +61,10 @@
 //  OptionSet p = new OptionSet ()
 //    .Add ("v", v => ++verbose)
 //    .Add ("name=|value=", v => Console.WriteLine (v));
-//  p.Parse (new string[]{"-v", "--v", "/v", "-name=A", "/name", "B", "extra"});
+//  p.Parse (new string[]{"-v", "--v", "-name=A", "-name", "B", "extra"});
 //
 // The above would parse the argument string array, and would invoke the
-// lambda expression three times, setting `verbose' to 3 when complete.
+// lambda expression two times, setting `verbose' to 2 when complete.
 // It would also print out "A" and "B" to standard output.
 // The returned array would contain the string "extra".
 //
@@ -729,7 +729,7 @@ namespace NDesk.Options {
         }
 
         private readonly Regex ValueOption = new Regex (
-            @"^(?<flag>--|-|/)(?<name>[^:=]+)((?<sep>[:=])(?<value>.*))?$");
+            @"^(?<flag>--|-)(?<name>[^:=]+)((?<sep>[:=])(?<value>.*))?$");
 
         protected bool GetOptionParts (string argument, out string flag, out string name, out string sep, out string value)
         {

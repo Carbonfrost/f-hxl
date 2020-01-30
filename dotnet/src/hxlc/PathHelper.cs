@@ -1,7 +1,5 @@
 //
-// - PathHelper.cs -
-//
-// Copyright 2014 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2014, 2020 Carbonfrost Systems, Inc. (http://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -54,11 +52,19 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             return result;
         }
 
-        internal static string MakeRelative(string basePath, string path) {
-            if (string.IsNullOrEmpty(basePath))
-                return path;
+        private static Uri EnsureAbsoluteFile(string file) {
+            if (file[0] == '/') {
+                return new Uri("file://" + file, UriKind.Absolute);
+            }
+            return new Uri("file://" + Path.GetFullPath(file), UriKind.Absolute);
+        }
 
-            Uri baseUri = new Uri(EnsureTrailingSlash(basePath), UriKind.Absolute);
+        internal static string MakeRelative(string basePath, string path) {
+            if (string.IsNullOrEmpty(basePath)) {
+                return path;
+            }
+
+            Uri baseUri = EnsureAbsoluteFile(EnsureTrailingSlash(basePath));
             Uri relativeUri = CreateUriFromPath(path);
 
             if (!relativeUri.IsAbsoluteUri) {
