@@ -22,7 +22,7 @@ dotnet/build:
 dotnet/test: dotnet/publish -dotnet/test
 
 PUBLISH_DIR=dotnet/test/Carbonfrost.UnitTests.Hxl/bin/$(CONFIGURATION)/netcoreapp3.0/publish
-NUGET_DIR=../../../../../../../../$(HOME)/.nuget/packages
+NUGET_DIR=$(HOME)/.nuget/packages
 
 -dotnet/test:
 	fspec -i dotnet/test/Carbonfrost.UnitTests.Hxl/Content \
