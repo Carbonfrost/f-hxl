@@ -1,13 +1,11 @@
 //
-// - HxlWriter.cs -
-//
-// Copyright 2014 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2014, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,30 +19,33 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Carbonfrost.Commons.Core;
+
 using Carbonfrost.Commons.Web.Dom;
 using Carbonfrost.Commons.Hxl.Compiler;
-using Carbonfrost.Commons.Html;
 
 namespace Carbonfrost.Commons.Hxl {
 
     public class HxlWriter : DomWriter, ITextOutput {
 
-        readonly TextWriter _writer;
-        private readonly HtmlWriterSettings settings = new HtmlWriterSettings();
-        private readonly HxlTemplateContext _templateContext;
-        private int depth = 1;
+        private readonly TextWriter _writer;
+        private int _depth = 1;
+
+        public new HxlWriterSettings WriterSettings {
+            get {
+                return (HxlWriterSettings) base.WriterSettings;
+            }
+        }
 
         private string IndentBuffer {
             get {
                 // TODO Memoize this computation (performance)
-                return new string(' ', depth * settings.Indent);
+                return new string(' ', _depth * WriterSettings.Indent);
             }
         }
 
         public HxlTemplateContext TemplateContext {
             get {
-                return _templateContext;
+                return WriterSettings.TemplateContext;
             }
         }
 
@@ -54,11 +55,9 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        public HxlWriter(TextWriter writer, HxlTemplateContext templateContext) {
-            if (templateContext == null)
-                throw new ArgumentNullException("templateContext");
-
-            _templateContext = templateContext;
+        public HxlWriter(TextWriter writer, HxlWriterSettings settings) : base(
+            settings ?? new HxlWriterSettings()
+        ) {
             _writer = writer;
         }
 
@@ -91,8 +90,9 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         public override void WriteProcessingInstruction(string target, string data) {
-            if (settings.PrettyPrint)
+            if (WriterSettings.PrettyPrint) {
                 Indent();
+            }
 
             _writer.Write("<?");
             _writer.Write(target);
@@ -127,33 +127,37 @@ namespace Carbonfrost.Commons.Hxl {
             throw new NotImplementedException();
         }
 
-        public override void WriteDocument(DomDocument document) {
-            if (document == null)
+        protected override void WriteDocument(DomDocument document) {
+            if (document == null) {
                 return;
+            }
             Write(document.ChildNodes);
         }
 
-        public override void WriteEntityReference(DomEntityReference reference) {
-            if (reference == null)
+        protected override void WriteEntityReference(DomEntityReference reference) {
+            if (reference == null) {
                 return;
+            }
             _writer.Write("&");
             _writer.Write(reference.NodeName);
         }
 
-        public override void WriteCDataSection(DomCDataSection section) {
-            if (section == null)
+        protected override void WriteCDataSection(DomCDataSection section) {
+            if (section == null) {
                 return;
+            }
 
             WriteCDataSection(section.Data);
         }
 
-        public override void WriteDocumentType(DomDocumentType documentType) {
+        protected override void WriteDocumentType(DomDocumentType documentType) {
             // Drop document type if we're running a master
-            if (this._templateContext.MasterInfo == null)
+            if (TemplateContext.MasterInfo == null) {
                 TextUtility.OuterText(_writer, documentType);
+            }
         }
 
-        public override void WriteElement(DomElement element) {
+        protected override void WriteElement(DomElement element) {
             var frag = element as ElementFragment;
             if (frag != null) {
                 WriteElementFragment(frag);
@@ -161,32 +165,36 @@ namespace Carbonfrost.Commons.Hxl {
             }
 
             // TODO Missing HTML settings and pretty print semantics
-            IElementTemplate template = ElementTemplate.ProcessAttributesForTemplate(element, _templateContext);
+            IElementTemplate template = ElementTemplate.ProcessAttributesForTemplate(element, TemplateContext);
             template = template ?? element.GetElementTemplate() ?? ElementTemplate.Default;
 
             template.Render(element, this);
         }
 
-        public override void WriteProcessingInstruction(DomProcessingInstruction instruction) {
-            if (instruction == null)
+        protected override void WriteProcessingInstruction(DomProcessingInstruction instruction) {
+            if (instruction == null) {
                 return;
+            }
             WriteProcessingInstruction(instruction.Target, instruction.Data);
         }
 
-        public override void WriteComment(DomComment comment) {
-            if (comment == null)
+        protected override void WriteComment(DomComment comment) {
+            if (comment == null) {
                 return;
-            if (settings.PrettyPrint)
+            }
+            if (WriterSettings.PrettyPrint) {
                 Indent();
+            }
 
             _writer.Write("<!--");
             _writer.Write(comment.Text);
             _writer.Write("-->");
         }
 
-        public override void WriteText(DomText text) {
-            if (text == null)
+        protected override void WriteText(DomText text) {
+            if (text == null) {
                 return;
+            }
             WriteText(text.Data);
         }
 
@@ -198,8 +206,9 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         public void Write(object value) {
-            if (ReferenceEquals(null, value))
+            if (ReferenceEquals(null, value)) {
                 return;
+            }
 
             var str = value as string;
             if (str != null) {
@@ -264,7 +273,7 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         private void WriteElementFragment(ElementFragment fragment) {
-            fragment.Render_(this._templateContext, this);
+            fragment.Render_(TemplateContext, this);
         }
 
         private void Indent() {

@@ -170,7 +170,8 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
                 // TODO Get access to template builder another way
                 var builder = (IHxlTemplateBuilder) templ;
-                var outputFile = Path.Combine(outputDirectory, builder.ClassName + ".g.cs");
+
+                var outputFile = Path.Combine(outputDirectory, builder.TemplateName + ".g.cs");
 
                 // TODO Handle file errors more gracefully
                 File.WriteAllText(outputFile, generatedSource);

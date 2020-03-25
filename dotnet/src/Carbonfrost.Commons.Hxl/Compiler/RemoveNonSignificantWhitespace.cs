@@ -66,9 +66,10 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
                 WS_HANDLING.Add(s, TrimText);
         }
 
-        public override void Preprocess(DomDocument document, IServiceProvider serviceProvider) {
-            foreach (var m in document.ChildNodes.OfType<DomElement>())
+        public override void Preprocess(DomContainer document, IServiceProvider serviceProvider) {
+            foreach (var m in document.ChildNodes.OfType<DomElement>()) {
                 ProcessElement(m);
+            }
         }
 
         static void ProcessElement(DomElement e) {

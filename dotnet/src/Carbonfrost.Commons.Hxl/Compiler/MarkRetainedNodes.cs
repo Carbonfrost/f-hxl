@@ -27,11 +27,11 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         internal static readonly MarkRetainedNodes Instance
             = new MarkRetainedNodes();
 
-        public override void Preprocess(DomDocument document, IServiceProvider serviceProvider) {
+        public override void Preprocess(DomContainer document, IServiceProvider serviceProvider) {
             Rewrite(document);
         }
 
-        private static void Rewrite(DomDocument document) {
+        private static void Rewrite(DomContainer document) {
             ProcessElement(document);
         }
 
@@ -55,7 +55,6 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             }
             if (ConsiderChildren(item)
                 || (item.IsElement && item is ElementFragment)) {
-
                 item.Retain();
                 return true;
 

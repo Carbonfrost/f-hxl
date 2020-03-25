@@ -134,7 +134,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
             protected override void VisitElement(DomElement element) {
                 ElementTemplate.RenderElementStart(element, _sb);
-                this.Visit(element.ChildNodes);
+                this.VisitAll(element.ChildNodes);
                 ElementTemplate.RenderElementEnd(element, _sb);
             }
 

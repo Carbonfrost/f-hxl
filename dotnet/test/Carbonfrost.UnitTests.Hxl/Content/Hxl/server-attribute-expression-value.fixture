@@ -5,4 +5,4 @@ output.cs: >
     ;
 
 generated.html: >
-    <p> UTC</p>
+    <p>(UTC) Coordinated Universal Time</p>

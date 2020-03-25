@@ -74,6 +74,15 @@ namespace Carbonfrost.Commons.Hxl {
             set { ClassName = value; }
         }
 
+        [ExpressionSerializationMode(ExpressionSerializationMode.Hidden)]
+        public override string OuterXml {
+            get { return base.OuterXml; }
+            set {
+                // TODO This setter is not available because of f-core-runtime-expressions
+                // not properly filtering it out (metadata is set up correctly)
+            }
+        }
+
         protected ElementFragment()
             : base() {}
 

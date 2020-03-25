@@ -33,7 +33,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             this._builder = builder;
         }
 
-        public void Preprocess(DomDocument document, IServiceProvider serviceProvider) {
+        public void Preprocess(DomContainer document, IServiceProvider serviceProvider) {
             // Directives only appear at document level
             foreach (ProcessingInstructionFragment node in document.ChildNodes.OfType<ProcessingInstructionFragment>()) {
                 node.Preprocess_(_builder);

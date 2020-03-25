@@ -1,13 +1,11 @@
 //
-// - HxlTemplateContext.cs -
-//
-// Copyright 2013 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2013, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,20 +16,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Carbonfrost.Commons.Core;
+
 using Carbonfrost.Commons.Core.Runtime;
 using Carbonfrost.Commons.Web.Dom;
-using Carbonfrost.Commons.Hxl.Controls;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    public class HxlTemplateContext : DynamicObject { // , IHierarchyObject {
+    public class HxlTemplateContext : DynamicObject {
 
         private readonly IDictionary<string, object> data = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
         private readonly IProperties _self;
@@ -45,12 +41,14 @@ namespace Carbonfrost.Commons.Hxl {
 
         public IHxlRenderingProvider RenderingProvider {
             get {
-                if (_renderingProvider != null)
+                if (_renderingProvider != null) {
                     return _renderingProvider;
-                else if (Parent != null)
+                }
+                if (Parent != null) {
                     return Parent.RenderingProvider;
-                else
-                    return HxlRenderingProvider.Null;
+                }
+
+                return HxlRenderingProvider.Null;
             }
             set {
                 _renderingProvider = value;
@@ -59,12 +57,14 @@ namespace Carbonfrost.Commons.Hxl {
 
         public IHxlTemplateFactory TemplateFactory {
             get {
-                if (templateFactory != null)
+                if (templateFactory != null) {
                     return templateFactory;
-                else if (Parent != null)
+                }
+                if (Parent != null) {
                     return Parent.TemplateFactory;
-                else
-                    return HxlTemplateFactory.Null;
+                }
+
+                return HxlTemplateFactory.Null;
             }
             set {
                 templateFactory = value;
@@ -89,10 +89,10 @@ namespace Carbonfrost.Commons.Hxl {
                 if (Data.TryGetValue("pageLayoutInfo", out layoutsObject)) {
                     return layoutsObject as PageLayoutInfo;
                 }
-                if (Parent == null)
+                if (Parent == null) {
                     return null;
-                else
-                    return Parent.SinglePageLayoutInfo;
+                }
+                return Parent.SinglePageLayoutInfo;
             }
         }
 
@@ -112,6 +112,9 @@ namespace Carbonfrost.Commons.Hxl {
             return tc;
         }
 
+        public HxlTemplateContext() : this(null) {
+        }
+
         public HxlTemplateContext(object owner) {
             _self = Properties.FromValue(this);
             _ownerValues = owner == null ? Properties.Null : Properties.FromValue(owner);
@@ -122,29 +125,33 @@ namespace Carbonfrost.Commons.Hxl {
             return _self.Select(t => t.Key).Concat(Data.Keys).Concat(_ownerValues.Select(t => t.Key));
         }
 
-        public override bool TryGetMember(GetMemberBinder binder, out object result)
-        {
-            if (binder == null)
+        public override bool TryGetMember(GetMemberBinder binder, out object result) {
+            if (binder == null) {
                 throw new ArgumentNullException("binder");
+            }
 
-            if (_selfValues.TryGetProperty(binder.Name, typeof(object), out result))
+            if (_selfValues.TryGetProperty(binder.Name, typeof(object), out result)) {
                 return true;
+            }
 
             bool flag = this.Data.TryGetValue(binder.Name, out result);
 
-            if (!flag && this.Parent != null)
+            if (!flag && this.Parent != null) {
                 return this.Parent.TryGetMember(binder, out result);
+            }
 
-            if (!flag)
+            if (!flag) {
                 result = "undefined";
+            }
 
             // TODO Friendly error message (currently, "TemplateContext doesn't contain a defintion")
             return true;
         }
 
         public override bool TrySetMember(SetMemberBinder binder, object value) {
-            if (binder == null)
+            if (binder == null) {
                 throw new ArgumentNullException("binder");
+            }
 
             if (_self.HasProperty(binder.Name)) {
                 _self.SetProperty(binder.Name, value);
@@ -216,14 +223,16 @@ namespace Carbonfrost.Commons.Hxl {
             // TODO Could be multiple scheduled
             if (Parent != null) {
                 var result = Parent.FindPlaceholderContent(name);
-                if (result != null)
+                if (result != null) {
                     return result;
+                }
             }
 
             if (this._masterInfo != null) {
                 var content = _masterInfo.PlaceholderContent.GetPlaceholderContent(name);
-                if (content == null || !content.Any())
+                if (content == null || !content.Any()) {
                     return null;
+                }
                 else
                     return new PlaceholderContent(content.First(), _masterInfo.LayoutName);
             }
@@ -232,27 +241,15 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         internal HxlMasterInfo FindMasterInfo() {
-            if (_masterInfo != null)
+            if (_masterInfo != null) {
                 return _masterInfo;
-            if (Parent == null)
+            }
+            if (Parent == null) {
                 return null;
-            else
-                return Parent.FindMasterInfo();
+            }
+
+            return Parent.FindMasterInfo();
         }
-
-        // IHierarchyObject IHierarchyObject.ParentObject {
-        //     get {
-        //         return Parent;
-        //     }
-        //     set {
-        //     }
-        // }
-
-        // IEnumerable<IHierarchyObject> IHierarchyObject.ChildrenObjects {
-        //     get {
-        //         return Empty<IHierarchyObject>.List;
-        //     }
-        // }
 
         // TODO Could be API
         internal Properties GetElementData(bool createIfNecessary) {
@@ -274,7 +271,9 @@ namespace Carbonfrost.Commons.Hxl {
         internal HxlWriter StartBufferContent(string name) {
             if (name == "spaFragments") {
                 var result = new BufferContent(name);
-                var writer = new HxlWriter(result.Writer, this);
+                var writer = new HxlWriter(result.Writer, new HxlWriterSettings {
+                    TemplateContext = this
+                });
                 StartBufferContent(result);
                 return writer;
             }
@@ -294,8 +293,9 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         internal IEnumerable<StringWriter> EndBufferContent(string name) {
-            if (_buffers == null)
+            if (_buffers == null) {
                 yield break;
+            }
 
             for (int i = 0; i < _buffers.Count; i++) {
                 var item = _buffers[i];

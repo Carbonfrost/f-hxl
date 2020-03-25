@@ -48,6 +48,12 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             }
         }
 
+        protected override void VisitDocumentFragment(DomDocumentFragment fragment) {
+            using (manager.CreateSession()) {
+                DoChildVisit(fragment, "this.__document");
+            }
+        }
+
         protected override void VisitDirective(HxlDirective directive) {
             // TODO Allow directives second pass preprocessing (emit code)
         }
@@ -171,7 +177,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
             CurrentOutput.WriteLine("{0}.Append({1});", parent, varName);
 
-            Visit(element.ChildNodes);
+            VisitAll(element.ChildNodes);
             stack.Pop();
         }
 
@@ -202,10 +208,11 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         private void DoChildVisit(DomNode element, string varName, bool skipAttr = false) {
             stack.Push(varName);
             // TODO Indent attributes and child nodes
-            if (!skipAttr && element.Attributes != null)
-                Visit(element.Attributes);
+            if (!skipAttr && element.Attributes != null) {
+                VisitAll(element.Attributes);
+            }
 
-            Visit(element.ChildNodes);
+            VisitAll(element.ChildNodes);
             stack.Pop();
         }
 

@@ -38,7 +38,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         }
 
         public void WriteCode(IProfilerScope scope) {
-            HxlDocument result = this.template.PreparedDocument;
+            var result = this.template.PreparedDocument;
 
             if (IsCompletelyInlined(result, scope)) {
                 return;
@@ -69,7 +69,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             }
         }
 
-        private bool IsCompletelyInlined(DomDocument document, IProfilerScope scope) {
+        private bool IsCompletelyInlined(DomContainer document, IProfilerScope scope) {
             if (document.ChildNodes.Count != 1)
                 return false;
 

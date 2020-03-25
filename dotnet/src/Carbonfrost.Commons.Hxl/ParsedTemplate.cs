@@ -35,12 +35,12 @@ namespace Carbonfrost.Commons.Hxl {
     class ParsedTemplate : HxlTemplate, IHxlTemplateBuilder, IHxlEmittableTemplate {
 
         private readonly IList<string> usings = new List<string>();
-        private readonly HtmlDocument _sourceDocument;
+        private readonly HtmlDocumentFragment _sourceDocument;
         private readonly IDomNodeFactory _nodeFactory;
 
         private readonly IProfilerScope _metrics;
         private readonly HashSet<Assembly> _implicitAssemblyReferences = new HashSet<Assembly>();
-        private HxlDocument _preparedDocument;
+        private HxlDocumentFragment _preparedDocument;
         private readonly HxlCompilerSettings _settings;
 
         public HxlCompilerSettings Settings {
@@ -60,13 +60,13 @@ namespace Carbonfrost.Commons.Hxl {
             private set;
         }
 
-        public HtmlDocument SourceDocument {
+        public HtmlDocumentFragment SourceDocument {
             get {
                 return _sourceDocument;
             }
         }
 
-        public HxlDocument PreparedDocument {
+        public HxlDocumentFragment PreparedDocument {
             get {
                 return _preparedDocument;
             }
@@ -75,7 +75,9 @@ namespace Carbonfrost.Commons.Hxl {
         public ParsedTemplate(string text, string name, HxlCompilerSettings settings) {
             _metrics = Metrics.ForTemplateParsing();
             _metrics.StartParsing();
-            _sourceDocument = HtmlDocument.ParseXml(text, null);
+            _sourceDocument = HtmlDocumentFragment.Parse(text, new HtmlReaderSettings {
+                Mode = HtmlTreeBuilderMode.Xml
+            });
             _metrics.EndParsing(name, text.Length);
 
             _settings = settings;
@@ -162,7 +164,7 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        private HxlDocument PrepareDocument() {
+        private HxlDocumentFragment PrepareDocument() {
             _metrics.StartPreprocessor();
             ParsedTemplate parsed = this;
 
@@ -175,14 +177,15 @@ namespace Carbonfrost.Commons.Hxl {
                                           NewDocument(),
                                           t => _implicitAssemblyReferences.Add(t.GetTypeInfo().Assembly));
 
-            foreach (var c in all)
+            foreach (var c in all) {
                 c.Preprocess(myDoc, sp);
+            }
 
             // TODO Combine adjacent text uses (performance)
             // TODO ToArray() is wasteful (performance)
 
             // Convert document
-            HxlDocument result = NewDocument();
+            HxlDocumentFragment result = NewDocument();
             foreach (var m in myDoc.ChildNodes.ToArray()) {
                 var conv = HxlCompilerConverter.ChooseConverter(m);
                 conv.ConvertAndAppend(result, m, CSharpScriptGenerator.Instance);
@@ -213,9 +216,9 @@ namespace Carbonfrost.Commons.Hxl {
             };
         }
 
-        private HxlDocument NewDocument() {
+        private HxlDocumentFragment NewDocument() {
             var factory = new HxlProviderFactory(_nodeFactory);
-            return new HxlDocument(factory);
+            return (HxlDocumentFragment) new HxlDocument(factory).CreateDocumentFragment();
         }
     }
 

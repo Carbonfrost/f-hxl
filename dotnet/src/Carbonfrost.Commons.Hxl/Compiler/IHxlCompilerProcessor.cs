@@ -23,7 +23,7 @@ using Carbonfrost.Commons.Web.Dom;
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
     public interface IHxlCompilerProcessor {
-        void Preprocess(DomDocument document, IServiceProvider serviceProvider);
+        void Preprocess(DomContainer document, IServiceProvider serviceProvider);
         void Optimize(HxlDocument template, IServiceProvider serviceProvider);
     }
 }

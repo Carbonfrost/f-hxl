@@ -29,6 +29,7 @@ using Carbonfrost.Commons.Core;
 using Carbonfrost.Commons.Core.Runtime;
 using Carbonfrost.Commons.Spec;
 using System.Text.RegularExpressions;
+using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.UnitTests.Hxl.Compiler {
 
@@ -101,7 +102,7 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
             this.FixtureName = GetType().Name + "-" + fixture;
             this.Source = myFixture["input.hxl"];
 
-            this.InputHtml = HtmlDocument.ParseXml(this.Source, null).OuterHtml;
+            this.InputHtml = ParseHtml(Source);
             HxlCompilerSettings settings = new HxlCompilerSettings();
             settings.Namespaces.AddNew("test", new Uri("http://example.com/"));
 
@@ -230,14 +231,19 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
         }
 
         static string NormalizeForComparison(string text) {
-            var doc = HtmlDocument.ParseXml(text, null);
-            doc.AcceptVisitor(new NormalizeWSVisitor());
+            var doc = HtmlDocumentFragment.Parse(text, null);
+            DomNodeVisitor.Visit(doc, new NormalizeWSVisitor());
+            return doc.OuterHtml;
+        }
+
+        static string ParseHtml(string text) {
+            var doc = HtmlDocumentFragment.Parse(text, null);
             return doc.OuterHtml;
         }
 
         class NormalizeWSVisitor : HtmlNodeVisitor {
 
-            public override void VisitText(HtmlText node) {
+            protected override void VisitText(HtmlText node) {
                 node.Data = node.Data.Trim();
             }
         }

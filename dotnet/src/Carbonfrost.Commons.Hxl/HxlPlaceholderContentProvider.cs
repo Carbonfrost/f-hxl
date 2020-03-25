@@ -76,7 +76,7 @@ namespace Carbonfrost.Commons.Hxl {
                 MergeAttributes(content, element);
             }
 
-            var attr = element.Attributes.GetByName("class");
+            var attr = element.Attributes["class"];
             if (attr == null)
                 element.Attribute("class", "app-placeholder");
             else
@@ -156,7 +156,7 @@ namespace Carbonfrost.Commons.Hxl {
                 if (IsLayoutAttr(attr))
                     continue;
 
-                var current = toElement.Attributes.GetByName(attr.Name);
+                var current = toElement.Attributes[attr.Name];
 
                 if (current == null) {
                     toElement.Attributes.Add(attr);

@@ -26,12 +26,12 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
         public static readonly IHxlCompilerProcessor Null = new NullImpl();
 
-        public virtual void Preprocess(DomDocument document, IServiceProvider serviceProvider) {}
+        public virtual void Preprocess(DomContainer document, IServiceProvider serviceProvider) {}
         public virtual void Optimize(HxlDocument template, IServiceProvider serviceProvider) {}
 
         class NullImpl : IHxlCompilerProcessor {
 
-            void IHxlCompilerProcessor.Preprocess(DomDocument document, IServiceProvider serviceProvider) {}
+            void IHxlCompilerProcessor.Preprocess(DomContainer document, IServiceProvider serviceProvider) {}
             void IHxlCompilerProcessor.Optimize(HxlDocument template, IServiceProvider serviceProvider) {}
         }
     }

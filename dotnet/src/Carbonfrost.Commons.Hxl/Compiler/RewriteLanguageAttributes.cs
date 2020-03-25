@@ -27,11 +27,11 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         internal static readonly RewriteLanguageAttributes Instance
             = new RewriteLanguageAttributes();
 
-        public override void Preprocess(DomDocument document, IServiceProvider serviceProvider) {
+        public override void Preprocess(DomContainer document, IServiceProvider serviceProvider) {
             Rewrite(document);
         }
 
-        static void Rewrite(DomDocument document) {
+        static void Rewrite(DomContainer document) {
             ProcessElement(document);
         }
 
