@@ -1,13 +1,11 @@
 //
-// - HxlcApp.cs -
-//
-// Copyright 2014 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2014, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,12 +19,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Xml;
+
 using Carbonfrost.Commons.Hxl;
 using Carbonfrost.Commons.Hxl.Compiler;
 using Carbonfrost.Commons.Core.Runtime;
-using Carbonfrost.Commons.Web.Dom;
-using Microsoft.CSharp.RuntimeBinder;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
@@ -34,11 +30,11 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
         public readonly ProgramOptions Options;
 
-        private readonly IHxlcLogger logger;
+        private readonly IHxlcLogger _logger;
 
         public HxlcApp(ProgramOptions options) {
-            this.Options = options;
-            logger = new HxlcLogger();
+            Options = options;
+            _logger = new HxlcLogger(Options.TraceLevel);
         }
 
         public int Run() {
@@ -96,7 +92,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
                     collectedReferences[name] = reference;
 
                 } catch (Exception ex) {
-                    logger.FailedToLoadAssemblyReference(reference, ex);
+                    _logger.FailedToLoadAssemblyReference(reference, ex);
                     // TODO Should have robust error handlng
                 }
             }
@@ -124,7 +120,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
             foreach (var item in Options.Inputs.EnumerateFiles()) {
                 string file = item.File;
-                logger.ParsingTemplate(file);
+                _logger.ParsingTemplate(file);
 
                 // TODO Get access to template builder another way
                 var template = compiler.LoadTemplate(file);
@@ -148,7 +144,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
                 templates.Add(template);
             }
             if (templates.Count == 0) {
-                logger.NoSourceFilesSpecified();
+                _logger.NoSourceFilesSpecified();
                 return 1;
             }
 
@@ -175,14 +171,14 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
                 // TODO Handle file errors more gracefully
                 File.WriteAllText(outputFile, generatedSource);
-                logger.SavedOutputFile(outputFile);
+                _logger.SavedOutputFile(outputFile);
             }
             return 0;
         }
 
         private int CompileSource(HxlCompiler compiler, List<HxlTemplate> templates) {
             var compilerResult = compiler.Compile(templates);
-            logger.LogCompilerErrors(compilerResult.Errors);
+            _logger.LogCompilerErrors(compilerResult.Errors);
 
             // TODO Not handling compile errors appropriately
 
@@ -201,7 +197,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
                 Options.OutputFile,
                 true);
 
-            logger.SavedOutputFile(Options.OutputFile);
+            _logger.SavedOutputFile(Options.OutputFile);
             return 0;
         }
     }

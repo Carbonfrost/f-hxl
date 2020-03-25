@@ -56,6 +56,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             g.InitializeComponent = buffer.ToString();
             g.RenderIslands = visitor.RenderIslands;
             g.HasDocument = true;
+            g.Accessibility = "public";
 
             string code = g.TransformText();
             output.WriteLine(code);
@@ -107,6 +108,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             g.TemplateName = tmp.TemplateName;
             g.BaseClass = GetBaseClass(tmp);
             g.ModelType = Convert.ToString(tmp.ModelType);
+            g.Accessibility = "public";
         }
 
         private string GetBaseClass(ParsedTemplate tmp) {

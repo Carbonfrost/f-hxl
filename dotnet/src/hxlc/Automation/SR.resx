@@ -59,34 +59,31 @@
     <value>System.Resources.ResXResourceWriter, srgen, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </resheader>
   <data name="UBaseType" xml:space="preserve">
-    <value>Use the given base type for generated templates</value>
+    <value>Use the given base {{CLASS}} for generated templates</value>
   </data>
   <data name="UDebug" xml:space="preserve">
     <value>Display additional debug information</value>
   </data>
   <data name="UDefine" xml:space="preserve">
-    <value>Define a property value</value>
+    <value>Define a {{0:PROPERTY}} with the given {{1:VALUE}}</value>
   </data>
   <data name="UHelp" xml:space="preserve">
     <value>Display this help screen</value>
   </data>
   <data name="UInclude" xml:space="preserve">
-    <value>Include all files matching the given pattern, or if a directory, all source files within the directory and its subdirectories</value>
+    <value>Include all files matching the given {{PATTERN}}, or if a directory, all source files within the directory and its subdirectories</value>
   </data>
   <data name="UNamespace" xml:space="preserve">
-    <value>Map an XML prefix to a namespace when resolving types</value>
+    <value>Map an XML {{0:PREFIX}} to a {{1:NAMESPACE}} when resolving types</value>
   </data>
   <data name="UNoCompile" xml:space="preserve">
     <value>Don't compile an assembly - just generate source files</value>
   </data>
-  <data name="UNoLogo" xml:space="preserve">
-    <value>Suppress the copyright information</value>
-  </data>
   <data name="UOut" xml:space="preserve">
-    <value>An output path where the assembly file will be written -or- the directory if --no-compile is specified</value>
+    <value>An output path where the assembly {{PATH}} will be written -or- the directory if --no-compile is specified</value>
   </data>
   <data name="UReference" xml:space="preserve">
-    <value>Reference metadata from the assembly file</value>
+    <value>Add the given assembly {{FILE}} as a reference</value>
   </data>
   <data name="UVerbose" xml:space="preserve">
     <value>Specify verbose output</value>

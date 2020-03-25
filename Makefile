@@ -1,5 +1,10 @@
 .PHONY: dotnet/generate dotnet/test
 
+FRAMEWORK ?= netcoreapp3.0
+PREFIX ?= /usr/local
+
+-include eng/.mk/*.mk
+
 ## Generate generated code
 dotnet/generate:
 	srgen -c Carbonfrost.Commons.Hxl.Resources.SR \
@@ -33,4 +38,11 @@ NUGET_DIR=$(HOME)/.nuget/packages
 		$(NUGET_DIR)/System.Threading.Tasks.Extensions/4.5.2/lib/netstandard2.0/System.Threading.Tasks.Extensions.dll \
 		$(PUBLISH_DIR)/Carbonfrost.UnitTests.Hxl.dll
 
-include eng/.mk/*.mk
+-install-dotnet-%: -check-env-CONFIGURATION -check-env-FRAMEWORK -check-env-PREFIX
+	@ install -d $(PREFIX)/{bin,opt}
+	@ rsync -r dotnet/src/$*/bin/$(CONFIGURATION)/$(FRAMEWORK)/publish/ $(PREFIX)/opt/$*
+	@ sed 's/APP_NAME/$*/g' ./dotnet/src/shim.template.sh > $(PREFIX)/bin/$*
+	@ chmod +x $(PREFIX)/bin/$*
+
+## Install dotnet outputs
+dotnet/install: -install-dotnet-hxlc

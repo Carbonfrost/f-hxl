@@ -5,7 +5,7 @@
 #pragma warning disable CS8019
 
 // File automatically generated at <#= DateTime.Now #>
-namespace <#= this.Namespace #> {
+namespace <#= Namespace #> {
 
 using System;
 using System.Linq;
@@ -14,10 +14,10 @@ using Carbonfrost.Commons.Hxl;
 using <#= u #>;
 <# } #>
 
-    [global::System.CodeDom.Compiler.GeneratedCode("<#= this.CodeGenerator #>", "<#= this.CodeGeneratorVersion #>")]
-    [global::Carbonfrost.Commons.Hxl.HxlTemplate(Name = "<#= this.TemplateName #>")]
-    partial class <#= this.ClassName #>
-        : global::<#= this.BaseClass #>
+    [global::System.CodeDom.Compiler.GeneratedCode("<#= CodeGenerator #>", "<#= CodeGeneratorVersion #>")]
+    [global::Carbonfrost.Commons.Hxl.HxlTemplate(Name = "<#= TemplateName #>")]
+    <#= Accessibility #> partial class <#= ClassName #>
+        : global::<#= BaseClass #>
 <# if (this.HasDocument) { #>
           , global::Carbonfrost.Commons.Hxl.IHxlDocumentAccessor
 <# } #>
@@ -52,10 +52,10 @@ using <#= u #>;
             global::Carbonfrost.Commons.Web.Dom.DomObject @<#= decl #>;
         <# } #>
 
-            <#= this.InitializeComponent #>
+            <#= InitializeComponent #>
         }
 
-        <#= this.RenderIslands #>
+        <#= RenderIslands #>
 
         protected override void TransformTextCore() {
 <# if (this.TransformTextCore.Length > 0) { #>
@@ -66,7 +66,7 @@ using <#= u #>;
 <# } else { #>
             dynamic __closure = this.TemplateContext;
 <# } #>
-            <#= this.TransformTextCore #>
+            <#= TransformTextCore #>
         }
 
         protected override void InitializeCore() {

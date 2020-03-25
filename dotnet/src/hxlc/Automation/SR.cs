@@ -63,7 +63,7 @@ namespace Hxlc.Resources {
         }
 
 
-  /// <summary>Use the given base type for generated templates</summary>
+  /// <summary>Use the given base {{CLASS}} for generated templates</summary>
     internal static string UBaseType(
 
     ) {
@@ -77,7 +77,7 @@ namespace Hxlc.Resources {
         return string.Format(Culture, ResourceFinder("UDebug") );
     }
 
-  /// <summary>Define a property value</summary>
+  /// <summary>Define a {{0:PROPERTY}} with the given {{1:VALUE}}</summary>
     internal static string UDefine(
 
     ) {
@@ -91,14 +91,14 @@ namespace Hxlc.Resources {
         return string.Format(Culture, ResourceFinder("UHelp") );
     }
 
-  /// <summary>Include all files matching the given pattern, or if a directory, all source files within the directory and its subdirectories</summary>
+  /// <summary>Include all files matching the given {{PATTERN}}, or if a directory, all source files within the directory and its subdirectories</summary>
     internal static string UInclude(
 
     ) {
         return string.Format(Culture, ResourceFinder("UInclude") );
     }
 
-  /// <summary>Map an XML prefix to a namespace when resolving types</summary>
+  /// <summary>Map an XML {{0:PREFIX}} to a {{1:NAMESPACE}} when resolving types</summary>
     internal static string UNamespace(
 
     ) {
@@ -112,21 +112,14 @@ namespace Hxlc.Resources {
         return string.Format(Culture, ResourceFinder("UNoCompile") );
     }
 
-  /// <summary>Suppress the copyright information</summary>
-    internal static string UNoLogo(
-
-    ) {
-        return string.Format(Culture, ResourceFinder("UNoLogo") );
-    }
-
-  /// <summary>An output path where the assembly file will be written -or- the directory if --no-compile is specified</summary>
+  /// <summary>An output path where the assembly {{PATH}} will be written -or- the directory if --no-compile is specified</summary>
     internal static string UOut(
 
     ) {
         return string.Format(Culture, ResourceFinder("UOut") );
     }
 
-  /// <summary>Reference metadata from the assembly file</summary>
+  /// <summary>Add the given assembly {{FILE}} as a reference</summary>
     internal static string UReference(
 
     ) {

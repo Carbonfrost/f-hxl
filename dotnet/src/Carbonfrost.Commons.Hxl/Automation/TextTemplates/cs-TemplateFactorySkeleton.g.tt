@@ -8,12 +8,12 @@ using System;
 using System.Linq;
 using Carbonfrost.Commons.Hxl;
 
-[assembly: global::Carbonfrost.Commons.Hxl.HxlTemplateFactoryAttribute(typeof(<#= this.ClassName #>))]
+[assembly: global::Carbonfrost.Commons.Hxl.HxlTemplateFactoryAttribute(typeof(<#= ClassName #>))]
 
-namespace <#= this.Namespace #> {
+namespace <#= Namespace #> {
 
-    [global::System.CodeDom.Compiler.GeneratedCode("<#= this.CodeGenerator #>", "<#= this.CodeGeneratorVersion #>")]
-    partial class <#= this.ClassName #> : global::Carbonfrost.Commons.Hxl.HxlTemplateFactory {
+    [global::System.CodeDom.Compiler.GeneratedCode("<#= CodeGenerator #>", "<#= CodeGeneratorVersion #>")]
+    <#= Accessibility #> partial class <#= ClassName #> : global::Carbonfrost.Commons.Hxl.HxlTemplateFactory {
 
         public override HxlTemplate GetTemplate(string name) {
             switch (name) {
