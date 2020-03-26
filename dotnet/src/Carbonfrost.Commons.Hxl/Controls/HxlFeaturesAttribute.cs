@@ -23,7 +23,7 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.Commons.Hxl.Controls {
 
-    public class HxlFeaturesAttribute : AttributeFragment {
+    public class HxlFeaturesAttribute : HxlAttribute {
 
         [Value, ElementData]
         public DomStringTokenList Features {

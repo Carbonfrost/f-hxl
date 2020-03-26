@@ -46,7 +46,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             return matches;
         }
 
-        public override void Preprocess(DomDocument document, IServiceProvider serviceProvider) {
+        public override void Preprocess(DomContainer document, IServiceProvider serviceProvider) {
             Rewrite(document);
         }
 
@@ -76,7 +76,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             return eb.Visit(e);
         }
 
-        public static void Rewrite(DomDocument document) {
+        public static void Rewrite(DomContainer document) {
             ProcessElement(document);
         }
 

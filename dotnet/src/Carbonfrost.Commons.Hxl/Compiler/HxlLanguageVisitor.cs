@@ -20,7 +20,7 @@ using System;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
-    public abstract class HxlLanguageVisitor : NodeFragmentVisitor, IHxlLanguageVisitor {
+    public abstract class HxlLanguageVisitor : HxlVisitor, IHxlLanguageVisitor {
 
         protected virtual void DefaultVisit(HxlLangElement element) {
         }

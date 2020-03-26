@@ -22,7 +22,7 @@ using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
-    [AttributeFragmentUsage(Priority = AttributeFragmentPriority.Layout)]
+    [HxlAttributeUsage(Priority = AttributeFragmentPriority.Layout)]
     public sealed class HxlTAttribute : HxlLangAttribute {
 
         [Value]
@@ -52,7 +52,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
             public void EmitCode(TextWriter output, string varName, DomElement workElement) {
                 output.Write("((global::{3}) {0}).SetElementTemplate(global::{2}.FromTemplate(\"{1}\"));",
-                             varName, _name, typeof(ElementTemplate).FullName, typeof(DomElement).FullName);
+                             varName, _name, typeof(HxlElementTemplate).FullName, typeof(DomElement).FullName);
             }
 
         }

@@ -22,7 +22,7 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.Commons.Hxl.Controls {
 
-    public class HxlBodyElement : ElementFragment {
+    public class HxlBodyElement : HxlElement {
 
         public override void Render() {
             try {

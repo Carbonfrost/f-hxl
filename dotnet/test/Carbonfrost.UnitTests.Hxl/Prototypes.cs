@@ -25,8 +25,8 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.UnitTests.Hxl {
 
-    [ElementFragmentUsage]
-    public class ExampleElement : ElementFragment {
+    [HxlElementUsage]
+    public class ExampleElement : HxlElement {
 
         [Value]
         public string A { get; set; }
@@ -40,8 +40,8 @@ namespace Carbonfrost.UnitTests.Hxl {
         }
     }
 
-    [AttributeFragmentUsage]
-    public class ExampleAttribute : AttributeFragment {
+    [HxlAttributeUsage]
+    public class ExampleAttribute : HxlAttribute {
 
         public string A { get; set; }
 
@@ -50,30 +50,30 @@ namespace Carbonfrost.UnitTests.Hxl {
         [Value]
         public char C { get; set; }
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             var txt = this.OwnerDocument.CreateText(string.Format("example: {0} {1} {2}", A, B, C));
             this.OwnerElement.ChildNodes.Insert(0, txt);
 
-            return ElementTemplate.Default;
+            return HxlElementTemplate.Default;
         }
     }
 
-    [AttributeFragmentUsage]
-    public class MyAttributeFragment : AttributeFragment {
+    [HxlAttributeUsage]
+    public class MyAttributeFragment : HxlAttribute {
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             this.OwnerElement.AppendText(Value.ToUpper());
             return null;
         }
     }
 
-    [AttributeFragmentUsage]
+    [HxlAttributeUsage]
     public class MyDerivedAttributeFragment : MyAttributeFragment {
 
         [Value]
         public TimeZoneInfo A { get; set; }
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             this.OwnerElement.AppendText(Convert.ToString(A));
             return null;
         }

@@ -1,7 +1,5 @@
 //
-// - ElementTemplate.cs -
-//
-// Copyright 2013 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2013, 2020 Carbonfrost Systems, Inc. (http://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,9 +14,6 @@
 // limitations under the License.
 //
 
-
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -27,7 +22,7 @@ using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    public abstract partial class ElementTemplate : ITextOutput, IElementTemplate {
+    public abstract partial class HxlElementTemplate : ITextOutput, IHxlElementTemplate {
 
         static readonly HtmlWriterSettings settings = new HtmlWriterSettings {
             // TODO Using XHTML for output because parser inside tests requires it.
@@ -70,7 +65,7 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        void IElementTemplate.Render(DomElement element, HxlWriter output) {
+        void IHxlElementTemplate.Render(DomElement element, HxlWriter output) {
             _element = element;
             try {
                 _writer = output;
@@ -97,16 +92,16 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        internal static IElementTemplate ProcessAttributesForTemplate(DomElement element, HxlTemplateContext templateContext) {
+        internal static IHxlElementTemplate ProcessAttributesForTemplate(DomElement element, HxlTemplateContext templateContext) {
             // TODO Cloning array is wasteful (performance)
 
             // TODO If attributes are added, they aren't considered
             // so if they are server attributes they don't get OnElementRendering_ (rare)
 
-            IElementTemplate template = null;
+            IHxlElementTemplate template = null;
             // TODO Sort attributes by priority
             // TODO Capture any attribute text output (uncommon)
-            foreach (var af in element.Attributes.OfType<AttributeFragment>().ToArray()) {
+            foreach (var af in element.Attributes.OfType<HxlAttribute>().ToArray()) {
                 if (af != null) {
                     // TODO Probably need to push context
                     template = af.OnElementRendering_(templateContext) ?? template;
@@ -121,7 +116,7 @@ namespace Carbonfrost.Commons.Hxl {
             w.Write(element.Name);
 
             foreach (var entry in element.Attributes) {
-                if (!AttributeFragment.IsClientAttribute(entry))
+                if (!HxlAttribute.IsClientAttribute(entry))
                     continue;
 
                 w.Write(" ");
@@ -175,13 +170,13 @@ namespace Carbonfrost.Commons.Hxl {
             _outputBuffer.EndBufferContent(name);
         }
 
-        sealed class EmptyElementTemplate : IElementTemplate {
-            void IElementTemplate.Render(DomElement element, HxlWriter output) {}
+        sealed class EmptyElementTemplate : IHxlElementTemplate {
+            void IHxlElementTemplate.Render(DomElement element, HxlWriter output) {}
         }
 
-        class DefaultElementTemplate : IElementTemplate {
+        class DefaultElementTemplate : IHxlElementTemplate {
 
-            void IElementTemplate.Render(DomElement element, HxlWriter output) {
+            void IHxlElementTemplate.Render(DomElement element, HxlWriter output) {
                 RenderElementStart(element, output.BaseWriter);
                 output.Write(element.ChildNodes);
                 RenderElementEnd(element, output.BaseWriter);

@@ -1,13 +1,11 @@
 //
-// - HxlNodeFactory.cs -
-//
-// Copyright 2013 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2013, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,49 +14,43 @@
 // limitations under the License.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Carbonfrost.Commons.Core.Runtime;
 using Carbonfrost.Commons.Web.Dom;
 using Carbonfrost.Commons.Hxl.Compiler;
 using Carbonfrost.Commons.Hxl.Controls;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    sealed class HxlNodeFactory : HxlDomNodeFactory {
+    sealed class HxlCompilerNodeFactory : HxlDomNodeFactory {
 
         public override DomElement CreateElement(HxlQualifiedName name) {
-            if (name.NamespaceUri == Xmlns.HxlLangUri)
+            if (name.NamespaceUri == Xmlns.HxlLangUri) {
                 return LangElement(name);
+            }
 
-            if (name.NamespaceUri == Xmlns.HxlUri)
+            if (name.NamespaceUri == Xmlns.HxlUri) {
                 return ControlsElement(name);
+            }
 
             return null;
         }
 
         public override DomAttribute CreateAttribute(HxlQualifiedName name) {
-            if (name.NamespaceUri == Xmlns.HxlLangUri)
+            if (name.NamespaceUri == Xmlns.HxlLangUri) {
                 return Lang(name);
+            }
 
-            if (name.NamespaceUri == Xmlns.HxlUri)
+            if (name.NamespaceUri == Xmlns.HxlUri) {
                 return Controls(name);
+            }
 
             return null;
         }
 
-        public override DomProcessingInstruction CreateProcessingInstruction(string target, string data) {
-            var props = HxlDirective.Parse(data);
-            var result = CreatePICore(target);
-
-            if (result != null)
-                Activation.Initialize(result, props);
-
-            return result;
+        public override DomProcessingInstruction CreateProcessingInstruction(string target) {
+            return CreatePICore(target);
         }
 
-        private static ProcessingInstructionFragment CreatePICore(string target) {
+        private static HxlProcessingInstruction CreatePICore(string target) {
             switch (target) {
                 case "model":
                     return new HxlModelDirective();
@@ -127,7 +119,7 @@ namespace Carbonfrost.Commons.Hxl {
 
         // TODO Implement an override version of GetAttributeNodeType (performance)
 
-        static AttributeFragment Controls(HxlQualifiedName name) {
+        static HxlAttribute Controls(HxlQualifiedName name) {
             switch (name.Name) {
                 case "layout":
                     return new HxlLayoutAttribute();
@@ -152,7 +144,7 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        static AttributeFragment HtmlControls(HxlQualifiedName name) {
+        static HxlAttribute HtmlControls(HxlQualifiedName name) {
             switch (name.Name) {
                 case "class":
                     return new HxlClassAttribute();
@@ -163,7 +155,7 @@ namespace Carbonfrost.Commons.Hxl {
             return null;
         }
 
-        static AttributeFragment Lang(HxlQualifiedName name) {
+        static HxlAttribute Lang(HxlQualifiedName name) {
             switch (name.Name) {
                 case "t":
                     return new HxlTAttribute();
@@ -211,4 +203,3 @@ namespace Carbonfrost.Commons.Hxl {
     }
 
 }
-

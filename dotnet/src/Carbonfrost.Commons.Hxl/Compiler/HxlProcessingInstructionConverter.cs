@@ -31,7 +31,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         }
 
         public static HxlCompilerConverter GetProcessingInstructionConverter(DomProcessingInstruction instruction) {
-            if (instruction is ProcessingInstructionFragment)
+            if (instruction is HxlProcessingInstruction)
                 return Server;
             else
                 return Noop;
@@ -42,7 +42,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         class ServerPIConverter : HxlProcessingInstructionConverter {
 
             protected override DomNode Convert(DomDocument document, DomProcessingInstruction instruction) {
-                ProcessingInstructionFragment pf = (ProcessingInstructionFragment) instruction;
+                HxlProcessingInstruction pf = (HxlProcessingInstruction) instruction;
                 if (pf.NeedsEmit)
                     return pf;
                 else

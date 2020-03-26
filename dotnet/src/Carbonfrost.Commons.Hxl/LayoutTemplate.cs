@@ -24,7 +24,7 @@ using Carbonfrost.Commons.Hxl;
 namespace Carbonfrost.Commons.Hxl {
 
     // Renders a given layout in place of the element
-    sealed class LayoutTemplate : ElementTemplate {
+    sealed class LayoutTemplate : HxlElementTemplate {
 
         readonly string _layoutName;
         readonly bool _ignoreErrors;

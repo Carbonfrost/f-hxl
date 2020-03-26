@@ -74,7 +74,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
         protected void PushRenderIsland(string name) {
             var sw = new StringWriter();
-            sw.WriteLine("private static void {0}(dynamic __closure, global::{1} __self) {{", name, typeof(ElementFragment));
+            sw.WriteLine("private static void {0}(dynamic __closure, global::{1} __self) {{", name, typeof(HxlElement));
             this.outputStack.Push(sw);
         }
 

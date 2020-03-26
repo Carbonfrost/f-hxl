@@ -1,13 +1,11 @@
 //
-// - HxlCharSetAttribute.cs -
-//
-// Copyright 2014 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,13 +14,29 @@
 // limitations under the License.
 //
 
-using System;
-using System.Linq;
+using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl.Controls {
 
-    public class HxlCharSetAttribute : HxlAttributeBase {
+    public class HxlCharSetAttribute : HxlAttribute, IHtmlAttributeControl {
 
-        public HxlCharSetAttribute() : base("charset") {}
+        const string NAME = "charset";
+
+        public HxlCharSetAttribute() : base("hxl:" + NAME ) {}
+
+        public DomStringTokenList Features {
+            get;
+            set;
+        }
+
+        string IHtmlAttributeControl.HtmlName {
+            get {
+                return NAME;
+            }
+        }
+
+        protected override IHxlElementTemplate OnElementRendering() {
+            return this.RenderHtml();
+        }
     }
 }

@@ -23,8 +23,8 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.Commons.Hxl.Controls {
 
-    [AttributeFragmentUsage]
-    public class HxlLayoutAttribute : AttributeFragment {
+    [HxlAttributeUsage]
+    public class HxlLayoutAttribute : HxlAttribute {
 
         // TODO Policy in attribute should prevent html>head from being inlined
 
@@ -36,7 +36,7 @@ namespace Carbonfrost.Commons.Hxl.Controls {
         public HxlLayoutAttribute() : base("hxl:layout") {
         }
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             if (SinglePage)
                 return new LayoutSinglePageTemplate(Layout);
             else

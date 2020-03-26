@@ -1,13 +1,11 @@
 //
-// - HxlDocument.cs -
-//
-// Copyright 2013 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2013, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +16,7 @@
 
 using System;
 using System.IO;
-using System.Linq;
+
 using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
@@ -27,15 +25,15 @@ namespace Carbonfrost.Commons.Hxl {
 
         private readonly HxlProviderFactory _providerFactory;
 
-        public override DomProviderFactory ProviderFactory {
+        public new HxlProviderFactory ProviderFactory {
             get {
-                return _providerFactory;
+                return (HxlProviderFactory) base.ProviderFactory;
             }
         }
 
-        private IDomNodeFactory NodeFactory {
+        protected override DomProviderFactory DomProviderFactory {
             get {
-                return ProviderFactory.NodeFactory;
+                return _providerFactory;
             }
         }
 
@@ -47,20 +45,18 @@ namespace Carbonfrost.Commons.Hxl {
             _providerFactory = factory;
         }
 
-        public override void WriteTo(TextWriter writer) {
-            WriteTo(writer, null);
-        }
-
-        // TODO Reconsider this API - it is invoked by generated templates
-        // Could at least change HxlTemplateContext => IDictionary<>
-
         public void WriteTo(TextWriter writer, HxlTemplateContext templateContext) {
-            if (writer == null)
-                throw new ArgumentNullException("writer");
-
-            new HxlWriter(writer, templateContext).Write(this);
+            WriteTo(writer, new HxlWriterSettings {
+                TemplateContext = templateContext
+            });
         }
 
-    }
+        public void WriteTo(TextWriter writer, HxlWriterSettings settings) {
+            if (writer == null) {
+                throw new ArgumentNullException(nameof(writer));
+            }
 
+            new HxlWriter(writer, settings).Write(this);
+        }
+    }
 }

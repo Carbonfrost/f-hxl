@@ -24,7 +24,7 @@ using Carbonfrost.Commons.Core.Runtime.Expressions;
 
 namespace Carbonfrost.Commons.Hxl.Controls {
 
-    public class HxlPlaceholderTargetAttribute : AttributeFragment {
+    public class HxlPlaceholderTargetAttribute : HxlAttribute {
 
         private string _placeholder;
 
@@ -71,12 +71,12 @@ namespace Carbonfrost.Commons.Hxl.Controls {
         // context (they should inherit automatically, possibly have
         // some policy that controls it)
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             if (DoesMasterContainPlaceholder()) {
-                return ElementTemplate.Skip;
+                return HxlElementTemplate.Skip;
             }
             else {
-                return ElementTemplate.Default;
+                return HxlElementTemplate.Default;
             }
         }
 

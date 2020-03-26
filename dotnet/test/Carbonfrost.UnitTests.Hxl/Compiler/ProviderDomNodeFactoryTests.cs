@@ -28,7 +28,7 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
 
         [Fact]
         public void CreateAttribute_should_lookup_provider() {
-            var infos = App.DescribeProviders().GetProviderInfos(typeof(AttributeFragment))
+            var infos = App.DescribeProviders().GetProviderInfos(typeof(HxlAttribute))
                 .ToArray();
 
             var p = new ProviderDomNodeFactory();

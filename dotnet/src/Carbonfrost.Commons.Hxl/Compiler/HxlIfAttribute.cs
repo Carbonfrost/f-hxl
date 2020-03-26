@@ -19,7 +19,7 @@ using Carbonfrost.Commons.Core.Runtime.Expressions;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
-    [AttributeFragmentUsage(Priority = AttributeFragmentPriority.LanguageConditional)]
+    [HxlAttributeUsage(Priority = AttributeFragmentPriority.LanguageConditional)]
     public sealed class HxlIfAttribute : HxlLangAttribute {
 
         [Variable]

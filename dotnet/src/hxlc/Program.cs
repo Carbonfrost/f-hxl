@@ -82,7 +82,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             unrecognized = null;
 
             foreach (string s in unknowns) {
-                if (s.StartsWith("-", StringComparison.Ordinal) || s.StartsWith("/", StringComparison.Ordinal)) {
+                if (s.StartsWith("-", StringComparison.Ordinal)) {
                     unrecognized = s;
                     return false;
                 }
@@ -113,6 +113,18 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             }
         }
 
+        private static DateTime? GetBuildDate() {
+            foreach (AssemblyMetadataAttribute meta in typeof(Program).GetTypeInfo().Assembly.GetCustomAttributes(typeof(AssemblyMetadataAttribute))) {
+                if (meta.Key == "[share:BuildDate]") {
+                    if (DateTime.TryParse(meta.Value, out DateTime result)) {
+                        return result;
+                    }
+                    return null;
+                }
+            }
+            return null;
+        }
+
         static void Logo(bool longVersion) {
             var asm = typeof(Program).GetTypeInfo().Assembly;
             string version = asm.GetName().Version.ToString();
@@ -140,7 +152,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
                 registered = "®";
                 copy = "©";
             }
-            DateTimeOffset buildDate = AssemblyInfo.GetAssemblyInfo(typeof(Program).GetTypeInfo().Assembly).BuildDate;
+            DateTime buildDate = GetBuildDate().GetValueOrDefault(new DateTime(2020, 1, 1));
             Console.WriteLine("Carbonfrost{1} HXL Compiler version {0}", version, registered);
             if (longVersion) {
                 Console.WriteLine("[{0}, version {1}]", sku, skuVersion);

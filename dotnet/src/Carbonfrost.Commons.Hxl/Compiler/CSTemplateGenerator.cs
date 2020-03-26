@@ -83,7 +83,15 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             }
         }
 
-        public bool HasDocument { get; set; }
+        public bool HasDocument {
+            get;
+            set;
+        }
+
+        public string Accessibility {
+            get;
+            set;
+        }
 
         public string CodeGeneratorVersion {
             get {

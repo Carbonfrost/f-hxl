@@ -28,7 +28,7 @@ namespace Carbonfrost.Commons.Hxl {
 
         private IHxlNamespaceResolver _resolver;
 
-        internal static readonly HxlDomNodeFactory Compiler = new HxlNodeFactory();
+        internal static readonly HxlDomNodeFactory Compiler = new HxlCompilerNodeFactory();
 
         public abstract DomElement CreateElement(HxlQualifiedName name);
         public abstract DomAttribute CreateAttribute(HxlQualifiedName name);
@@ -71,6 +71,10 @@ namespace Carbonfrost.Commons.Hxl {
                 pd.SetValue(component, value);
             else
                 throw new NotImplementedException();
+        }
+
+        public override DomDocumentFragment CreateDocumentFragment() {
+            return new HxlDocumentFragment();
         }
 
         public sealed override DomElement CreateElement(string name) {

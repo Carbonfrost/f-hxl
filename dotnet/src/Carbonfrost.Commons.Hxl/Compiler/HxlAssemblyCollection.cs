@@ -76,8 +76,9 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             var result = _namespaceCache.GetValueOrDefault(prefix);
             if (true ) {
                 var xml = Search(t => t.Prefix == prefix);
-                if (xml != null)
-                    return _namespaceCache[prefix] = xml.Xmlns;
+                if (xml != null) {
+                    return _namespaceCache[prefix] = new Uri(xml.Xmlns);
+                }
             }
 
             return null;
@@ -88,7 +89,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
                 throw new ArgumentNullException("namespaceUri");
 
             // No memoization because this is a much less frequent operation
-            var xml = Search(t => t.Xmlns == namespaceUri);
+            var xml = Search(t => t.Xmlns == namespaceUri.ToString());
             return xml == null ? null : xml.Prefix;
         }
 

@@ -27,7 +27,7 @@ namespace Carbonfrost.UnitTests.Hxl {
         [Fact]
         public void GetDynamicMemberNames_should_contain_properties() {
             var context = new HxlTemplateContext(new { a = "", b = "" });
-            Assert.SetEqual(new[] { "a", "b", "RenderingProvider", "TemplateFactory", "Data", "DataProviders", "Parent" },
+            Assert.SetEqual(new[] { "a", "b", "TemplateFactory", "Data", "DataProviders", "Parent" },
                             context.GetDynamicMemberNames().ToArray());
         }
 

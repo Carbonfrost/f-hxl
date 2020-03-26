@@ -24,11 +24,11 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.Commons.Hxl.Controls {
 
-    public class HxlBodyAttribute : AttributeFragment {
+    public class HxlBodyAttribute : HxlAttribute {
 
         public HxlBodyAttribute() : base("hxl:body") {}
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             dynamic data = TemplateContext;
 
             var node = data.Body as DomNode;
@@ -44,7 +44,7 @@ namespace Carbonfrost.Commons.Hxl.Controls {
                 throw new NotImplementedException();
         }
 
-        sealed class BodyTemplate : IElementTemplate {
+        sealed class BodyTemplate : IHxlElementTemplate {
 
             readonly IEnumerable<DomNode> _body;
 

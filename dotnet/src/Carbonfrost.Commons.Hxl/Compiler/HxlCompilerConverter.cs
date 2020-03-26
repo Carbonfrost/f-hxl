@@ -133,9 +133,9 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             }
 
             protected override void VisitElement(DomElement element) {
-                ElementTemplate.RenderElementStart(element, _sb);
-                this.Visit(element.ChildNodes);
-                ElementTemplate.RenderElementEnd(element, _sb);
+                HxlElementTemplate.RenderElementStart(element, _sb);
+                this.VisitAll(element.ChildNodes);
+                HxlElementTemplate.RenderElementEnd(element, _sb);
             }
 
             protected override void VisitNotation(DomNotation notation) {

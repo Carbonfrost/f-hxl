@@ -33,8 +33,8 @@ namespace Carbonfrost.Commons.Hxl {
 
         public ProviderDomNodeFactory()
         {
-            attributes = new LookupBuffer(typeof(AttributeFragment));
-            elements = new LookupBuffer(typeof(ElementFragment));
+            attributes = new LookupBuffer(typeof(HxlAttribute));
+            elements = new LookupBuffer(typeof(HxlElement));
         }
 
         // TODO Instances should be created using the .ctor(string) overload

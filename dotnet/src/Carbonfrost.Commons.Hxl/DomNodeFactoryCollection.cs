@@ -1,13 +1,11 @@
 //
-// - DomNodeFactoryCollection.cs -
-//
-// Copyright 2014 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2014, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,7 +25,7 @@ using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    public class DomNodeFactoryCollection : NamedObjectCollection<IDomNodeFactory>, IDomNodeFactory {
+    public class DomNodeFactoryCollection : NamedObjectCollection<IDomNodeFactory>, IDomNodeFactoryApiConventions {
 
         public DomNodeFactoryCollection() {}
 
@@ -83,32 +81,37 @@ namespace Carbonfrost.Commons.Hxl {
             return Items.FirstNonNull(t => t.CreateAttribute(name));
         }
 
-        public DomAttribute CreateAttribute(string name, IDomValue value) {
-            return Items.FirstNonNull(t => t.CreateAttribute(name, value));
+        public DomAttribute CreateAttribute(string name, string value) {
+            var attr = CreateAttribute(name);
+            if (attr == null) {
+                return null;
+            }
+            attr.Value = value;
+            return attr;
         }
 
-        public DomAttribute CreateAttribute(string name, string value) {
-            return Items.FirstNonNull(t => t.CreateAttribute(name, value));
+        public DomAttribute CreateAttribute(string name, IDomValue value) {
+            var attr = CreateAttribute(name);
+            if (attr == null) {
+                return null;
+            }
+
+            if (value == null) {
+                throw new ArgumentNullException(nameof(value));
+            }
+            return attr.SetValue(value);
         }
 
         public DomCDataSection CreateCDataSection() {
             return Items.FirstNonNull(t => t.CreateCDataSection());
         }
 
-        public DomCDataSection CreateCDataSection(string data) {
-            return Items.FirstNonNull(t => t.CreateCDataSection(data));
-        }
-
         public DomComment CreateComment() {
             return Items.FirstNonNull(t => t.CreateComment());
         }
 
-        public DomComment CreateComment(string data) {
-            return Items.FirstNonNull(t => t.CreateComment(data));
-        }
-
-        public DomDocumentType CreateDocumentType(string name, string publicId, string systemId) {
-            return Items.FirstNonNull(t => t.CreateDocumentType(name, publicId, systemId));
+        public DomDocumentType CreateDocumentType(string name) {
+            return Items.FirstNonNull(t => t.CreateDocumentType(name));
         }
 
         public DomElement CreateElement(string name) {
@@ -123,49 +126,78 @@ namespace Carbonfrost.Commons.Hxl {
             return Items.FirstNonNull(t => t.CreateProcessingInstruction(target));
         }
 
-        public DomProcessingInstruction CreateProcessingInstruction(string target, string data) {
-            return Items.FirstNonNull(t => t.CreateProcessingInstruction(target, data));
-        }
-
         public DomText CreateText() {
             return Items.FirstNonNull(t => t.CreateText());
         }
 
-        public DomText CreateText(string data) {
-            return Items.FirstNonNull(t => t.CreateText(data));
+        public DomDocumentFragment CreateDocumentFragment() {
+            return Items.FirstNonNull(t => t.CreateDocumentFragment());
+        }
+
+        public DomEntity CreateEntity(string name) {
+            return Items.FirstNonNull(t => t.CreateEntity(name));
+        }
+
+        public DomNotation CreateNotation(string name) {
+            return Items.FirstNonNull(t => t.CreateNotation(name));
         }
 
         public Type GetAttributeNodeType(string name) {
             return Items.FirstNonNull(t => t.GetAttributeNodeType(name));
         }
 
-        public Type GetCommentNodeType(string name) {
-            return Items.FirstNonNull(t => t.GetCommentNodeType(name));
-        }
-
         public Type GetElementNodeType(string name) {
             return Items.FirstNonNull(t => t.GetElementNodeType(name));
-        }
-
-        public Type GetEntityReferenceNodeType(string name) {
-            return Items.FirstNonNull(t => t.GetEntityReferenceNodeType(name));
-        }
-
-        public Type GetEntityNodeType(string name) {
-            return Items.FirstNonNull(t => t.GetEntityNodeType(name));
-        }
-
-        public Type GetNotationNodeType(string name) {
-            return Items.FirstNonNull(t => t.GetNotationNodeType(name));
         }
 
         public Type GetProcessingInstructionNodeType(string name) {
             return Items.FirstNonNull(t => t.GetProcessingInstructionNodeType(name));
         }
 
-        public Type GetTextNodeType(string name) {
-            return Items.FirstNonNull(t => t.GetTextNodeType(name));
+        public DomCDataSection CreateCDataSection(string data) {
+            var result = CreateCDataSection(data);
+            if (result == null) {
+                return null;
+            }
+            result.SetData(data);
+            return result;
         }
 
+        public DomComment CreateComment(string data) {
+            var result = CreateComment(data);
+            if (result == null) {
+                return null;
+            }
+            result.SetData(data);
+            return result;
+        }
+
+        public DomDocumentType CreateDocumentType(string name, string publicId, string systemId) {
+            var result = CreateDocumentType(name, publicId, systemId);
+            if (result == null) {
+                return null;
+            }
+            result.PublicId = publicId;
+            result.SystemId = systemId;
+            return result;
+        }
+
+        public DomProcessingInstruction CreateProcessingInstruction(string target, string data) {
+            var result = CreateProcessingInstruction(data);
+            if (result == null) {
+                return null;
+            }
+            result.Data = data;
+            return result;
+        }
+
+        public DomText CreateText(string data) {
+            var result = CreateText(data);
+            if (result == null) {
+                return null;
+            }
+            result.Data = data;
+            return result;
+        }
     }
 }

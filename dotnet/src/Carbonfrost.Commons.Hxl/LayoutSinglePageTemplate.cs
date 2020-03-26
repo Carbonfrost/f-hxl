@@ -23,7 +23,7 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    sealed class LayoutSinglePageTemplate : ElementTemplate {
+    sealed class LayoutSinglePageTemplate : HxlElementTemplate {
 
         private readonly string _layout;
 

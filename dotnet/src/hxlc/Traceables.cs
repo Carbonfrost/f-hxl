@@ -40,11 +40,11 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         }
 
         public static void SavedGeneratedSourceFile(this IHxlcLogger log, string outputFile) {
-            log.Info(outputFile);
+            log.Trace(outputFile);
         }
 
         public static void SavedOutputFile(this IHxlcLogger log, string outputFile) {
-            log.InfoFormat("Saved output file to: {0}", outputFile);
+            log.TraceFormat("Saved output file to: {0}", outputFile);
         }
 
         public static void LogCompilerErrors(this IHxlcLogger log, HxlCompilerErrorCollection errors) {

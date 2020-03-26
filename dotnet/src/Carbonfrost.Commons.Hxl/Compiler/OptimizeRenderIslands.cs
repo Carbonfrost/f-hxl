@@ -31,7 +31,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             // RemoveWhitespaceOptimization.Instance,
         };
 
-        public static void Rewrite(DomDocument document) {
+        public static void Rewrite(DomContainer document) {
             ProcessElement(document);
         }
 

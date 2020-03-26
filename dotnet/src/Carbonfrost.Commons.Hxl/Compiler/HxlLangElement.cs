@@ -22,7 +22,7 @@ using Carbonfrost.Commons.Core.Runtime.Expressions;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
-    public abstract class HxlLangElement : ElementFragment {
+    public abstract class HxlLangElement : HxlElement {
 
         internal HxlLangElement(string tag) : base(tag) {}
 

@@ -24,48 +24,48 @@ using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    partial class ElementTemplate {
+    partial class HxlElementTemplate {
 
-        public static readonly IElementTemplate InnerHtml = new InnerHtmlElementTemplate();
-        public static readonly IElementTemplate Default = new DefaultElementTemplate();
-        public static readonly IElementTemplate Skip = new EmptyElementTemplate();
+        public static readonly IHxlElementTemplate InnerHtml = new InnerHtmlElementTemplate();
+        public static readonly IHxlElementTemplate Default = new DefaultElementTemplate();
+        public static readonly IHxlElementTemplate Skip = new EmptyElementTemplate();
 
-        public static IElementTemplate FromRenderMode(RenderMode mode) {
+        public static IHxlElementTemplate FromRenderMode(RenderMode mode) {
             return mode.ToTemplate();
         }
 
-        public static IElementTemplate FromLayout(string layout) {
+        public static IHxlElementTemplate FromLayout(string layout) {
             return new LayoutTemplate(layout, false);
         }
 
-        public static IElementTemplate Async(ElementTemplate template) {
+        public static IHxlElementTemplate Async(HxlElementTemplate template) {
             if (template == null)
                 throw new ArgumentNullException("template");
 
             return new AsyncTemplate(template);
         }
 
-        public static IElementTemplate RenderAction() {
+        public static IHxlElementTemplate RenderAction() {
             throw new NotImplementedException();
         }
 
-        public static IElementTemplate RenderPartial() {
+        public static IHxlElementTemplate RenderPartial() {
             throw new NotImplementedException();
         }
 
-        public static IElementTemplate RenderUrl() {
+        public static IHxlElementTemplate RenderUrl() {
             throw new NotImplementedException();
         }
 
-        public static IElementTemplate FromTemplate(string name) {
+        public static IHxlElementTemplate FromTemplate(string name) {
             return new RenderTemplateImpl(name, null);
         }
 
-        public static IElementTemplate FromTemplate(string type, string name) {
+        public static IHxlElementTemplate FromTemplate(string type, string name) {
             return new RenderTemplateImpl(name, type);
         }
 
-        class RenderTemplateImpl : IElementTemplate {
+        class RenderTemplateImpl : IHxlElementTemplate {
 
             private readonly string _name;
             private readonly string _type;
@@ -76,7 +76,7 @@ namespace Carbonfrost.Commons.Hxl {
             }
 
             public void Render(DomElement element, HxlWriter output) {
-                var eti = new ElementTemplateInfo(element.Name, element.Attribute("class"));
+                var eti = new HxlElementTemplateInfo(element.Name, element.Attribute("class"));
                 var services = ServiceProvider.Compose(
                     ServiceProvider.Current,
                     ServiceProvider.FromValue(eti));

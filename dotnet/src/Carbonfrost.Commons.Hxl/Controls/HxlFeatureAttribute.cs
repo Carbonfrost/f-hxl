@@ -23,7 +23,7 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.Commons.Hxl.Controls {
 
-    public class HxlFeatureAttribute : AttributeFragment {
+    public class HxlFeatureAttribute : HxlAttribute {
 
         [Value]
         public string Feature {
@@ -31,7 +31,7 @@ namespace Carbonfrost.Commons.Hxl.Controls {
             set;
         }
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             object myFeatures = null;
 
             try {
@@ -45,7 +45,7 @@ namespace Carbonfrost.Commons.Hxl.Controls {
             if (features != null && features.Contains(Feature))
                 return null;
 
-            return ElementTemplate.Skip;
+            return HxlElementTemplate.Skip;
         }
 
         static DomStringTokenList ConvertFeatures(object myFeatures) {

@@ -24,7 +24,7 @@ namespace Carbonfrost.Commons.Hxl {
 
     public static class Extensions {
 
-        public static IElementTemplate GetElementTemplate(this DomElement element) {
+        public static IHxlElementTemplate GetElementTemplate(this DomElement element) {
             if (element == null)
                 throw new ArgumentNullException("element");
 
@@ -32,7 +32,7 @@ namespace Carbonfrost.Commons.Hxl {
             return result == null ? null : result.Template;
         }
 
-        public static void SetElementTemplate(this DomElement element, IElementTemplate template) {
+        public static void SetElementTemplate(this DomElement element, IHxlElementTemplate template) {
             if (element == null)
                 throw new ArgumentNullException("element");
 
@@ -50,7 +50,7 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         private class ElementTemplateAnnotation {
-            public IElementTemplate Template;
+            public IHxlElementTemplate Template;
         }
 
     }

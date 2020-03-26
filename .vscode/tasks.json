@@ -3,11 +3,11 @@
     "tasks": [
         {
             "label": "build",
-            "command": "dotnet",
+            "command": "/usr/local/bin/dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/dotnet/test/Carbonfrost.UnitTests.Core/Carbonfrost.UnitTests.Core.csproj",
+                "${workspaceFolder}/dotnet/test/Carbonfrost.UnitTests.Hxl/Carbonfrost.UnitTests.Hxl.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -15,11 +15,11 @@
         },
         {
             "label": "publish",
-            "command": "dotnet",
+            "command": "/usr/local/bin/dotnet",
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/dotnet/test/Carbonfrost.UnitTests.Core/Carbonfrost.UnitTests.Core.csproj",
+                "${workspaceFolder}/dotnet/test/Carbonfrost.UnitTests.Hxl/Carbonfrost.UnitTests.Hxl.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -27,12 +27,12 @@
         },
         {
             "label": "watch",
-            "command": "dotnet",
+            "command": "/usr/local/bin/dotnet",
             "type": "process",
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/dotnet/test/Carbonfrost.UnitTests.Core/Carbonfrost.UnitTests.Core.csproj",
+                "${workspaceFolder}/dotnet/test/Carbonfrost.UnitTests.Hxl/Carbonfrost.UnitTests.Hxl.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

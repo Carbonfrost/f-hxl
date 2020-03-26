@@ -18,8 +18,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 
 using System.Reflection;
 using Carbonfrost.Commons.Core;
@@ -31,13 +29,19 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
     class DomConverter : HtmlNodeVisitor {
 
-        private HxlDocument _result;
+        private HxlDocumentFragment _result;
         private DomContainer _current;
         private Action<Type> _typeUse;
 
-        public HxlDocument Convert(HtmlDocument html,
-                                   HxlDocument result,
-                                   Action<Type> typeUse) {
+        private DomDocument Document {
+            get {
+                return _result.OwnerDocument;
+            }
+        }
+
+        public HxlDocumentFragment Convert(DomContainer html,
+                                           HxlDocumentFragment result,
+                                           Action<Type> typeUse) {
             _result = result;
             _current = _result;
             _typeUse = typeUse;
@@ -45,8 +49,8 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             return _result;
         }
 
-        public override void VisitProcessingInstruction(HtmlProcessingInstruction node) {
-            var macro = _result.CreateProcessingInstruction(node.Target, node.Data);
+        protected override void VisitProcessingInstruction(HtmlProcessingInstruction node) {
+            var macro = Document.CreateProcessingInstruction(node.Target, node.Data);
 
             // TODO Missing line numbers and positions
             // TODO Enforce directives only at document level
@@ -54,7 +58,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             int pos = -1;
 
             if (macro != null
-                && (macro.Target == "xml" || (macro is ProcessingInstructionFragment))) {
+                && (macro.Target == "xml" || (macro is HxlProcessingInstruction))) {
                 _current.Append(macro);
                 AddImplicitType(macro.GetType());
 
@@ -62,34 +66,22 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
                 throw HxlFailure.DirectiveNotDefined(node.Target, line, pos);
         }
 
-        public override void VisitDocument(HtmlDocument node) {
-            // Wrap us in c:root
-            var child = _result.CreateElement("c:root");
-            AppendChild(child);
+        protected override void VisitDocument(HtmlDocument node) {
             VisitRange(node.ChildNodes);
         }
 
-        public override void VisitDocumentType(HtmlDocumentType node) {
-            var docType = _result.CreateDocumentType(node.Name, node.PublicId, node.SystemId);
+        protected override void VisitDocumentType(DomDocumentType node) {
+            var docType = Document.CreateDocumentType(node.Name, node.PublicId, node.SystemId);
             _current.Append(docType);
         }
 
-        public override void VisitText(HtmlText node) {
-            // Text isn't allowed at the document level
-            if (_current.NodeType == DomNodeType.Document) {
-                var macro = new HxlTextElement {
-                    Data = Utility.EscapeHtml(node.Text)
-                };
-                _current.Append(macro);
-                return;
-            }
-
-            _current.Append(_result.CreateText(node.Text));
+        protected override void VisitText(HtmlText node) {
+            _current.Append(Document.CreateText(node.Data));
             base.VisitText(node);
         }
 
-        public override void VisitElement(HtmlElement node) {
-            var child = _result.CreateElement(node.NodeName);
+        protected override void VisitElement(HtmlElement node) {
+            var child = Document.CreateElement(node.NodeName);
             if (child == null) {
                 throw HxlFailure.ServerElementCannotBeCreated(node.NodeName, -1, -1);
             }
@@ -135,14 +127,14 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             _current = oldCurrent;
         }
 
-        void VisitRange(IEnumerable<HtmlNode> childNodes) {
+        void VisitRange(IEnumerable<DomNode> childNodes) {
             foreach (var m in childNodes) {
                 Visit(m);
             }
         }
 
-        private DomAttribute CreateDomAttribute(HtmlAttribute m) {
-            DomAttribute attr = _result.CreateAttribute(m.Name, m.Value);
+        private DomAttribute CreateDomAttribute(DomAttribute m) {
+            DomAttribute attr = Document.CreateAttribute(m.Name, m.Value);
             if (attr == null)
                 throw new NotImplementedException();
 
@@ -151,11 +143,11 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             return attr;
         }
 
-        private DomAttributeWithInitializers CreateServerDomAttribute(HtmlAttribute m, string property) {
+        private DomAttributeWithInitializers CreateServerDomAttribute(DomAttribute m, string property) {
             var result = new DomAttributeWithInitializers();
 
             try {
-                result.Attribute = _result.CreateAttribute(m.Name);
+                result.Attribute = Document.CreateAttribute(m.Name);
 
             } catch (Exception ex) {
                 if (Failure.IsCriticalException(ex))

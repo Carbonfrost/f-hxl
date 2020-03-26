@@ -35,7 +35,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         }
 
         public static HxlCompilerConverter GetAttributeConverter(DomAttribute attribute) {
-            if (attribute is AttributeFragment)
+            if (attribute is HxlAttribute)
                 return Noop;
 
             if (IsExpr(attribute.Value ?? string.Empty))

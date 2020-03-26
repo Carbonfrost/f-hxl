@@ -26,8 +26,8 @@ using Carbonfrost.Commons.Core.Runtime;
 
 [assembly: Provides(typeof(IHxlNamespaceResolver))]
 [assembly: Provides(typeof(HxlDirective))]
-[assembly: Provides(typeof(ElementFragment))]
-[assembly: Provides(typeof(AttributeFragment))]
+[assembly: Provides(typeof(HxlElement))]
+[assembly: Provides(typeof(HxlAttribute))]
 
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]

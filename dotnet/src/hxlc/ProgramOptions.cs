@@ -30,12 +30,11 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         private readonly IDictionary<string, string> _defines = new Dictionary<string, string>();
         private readonly IDictionary<string, string> _namespaces = new Dictionary<string, string>();
 
-        public bool Debug { get; set; }
-
         public LogoType ShowLogo { get; set; }
         public string OutputFile { get; set; }
         public TypeReference BaseType { get; set; }
         public bool NoCompile { get; set; }
+        public HxlcTraceLevel TraceLevel { get; set; }
 
         public IDictionary<string, string> Namespaces {
             get {
@@ -65,12 +64,12 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             // TODO Localizations
             // TODO Support other csc style options
             this.OptionSet = new OptionSet {
-                { "nologo",       SR.UNoLogo(),        v => ShowLogo = LogoType.None },
                 { "version",      SR.UVersion(),       v => ShowLogo = LogoType.LogoExtendedVersion },
                 { "?|help",       SR.UHelp(),          v => ShowLogo = LogoType.Usage },
                 { "out=",         SR.UOut(),           v => OutputFile = v },
                 { "no-compile",   SR.UNoCompile(),     v => NoCompile = true },
-                { "debug",        SR.UDebug(),         v => Debug = true },
+                { "verbose",      SR.UDebug(),         v => TraceLevel = HxlcTraceLevel.Trace },
+                { "debug",        SR.UDebug(),         v => TraceLevel = HxlcTraceLevel.Debug },
                 { "base-type=",   SR.UBaseType(),      v => BaseType = TypeReference.Parse(v) },
                 { "include=",     SR.UInclude(),       v => Inputs.Add(v) },
                 { "N|namespace:=",SR.UNamespace(),(k, v) => Namespaces.Add(k, v) },

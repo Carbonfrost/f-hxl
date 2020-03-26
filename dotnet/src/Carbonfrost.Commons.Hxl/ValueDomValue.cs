@@ -1,13 +1,11 @@
 //
-// - ValueDomValue.cs -
-//
-// Copyright 2014 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2014, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +15,6 @@
 //
 
 using System;
-using System.Linq;
 using System.Reflection;
 using Carbonfrost.Commons.Core.Runtime;
 
@@ -27,7 +24,7 @@ namespace Carbonfrost.Commons.Hxl {
 
     class ValueDomValue : IDomValue {
 
-        private readonly AttributeFragment _attr;
+        private readonly HxlAttribute _attr;
         private readonly PropertyInfo _pd;
         private object valueCache;
         private string textCache;
@@ -43,7 +40,7 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        public ValueDomValue(AttributeFragment attribute, PropertyInfo property) {
+        public ValueDomValue(HxlAttribute attribute, PropertyInfo property) {
             this._attr = attribute;
             this._pd = property;
         }
@@ -72,10 +69,6 @@ namespace Carbonfrost.Commons.Hxl {
             // TODO This will be null on exiting the attribute, which shouldn't happen (design)
         }
 
-        public object Clone() {
-            return this;
-        }
-
         // TODO Error handling could be more robust
 
         private void ConvertBack(object value) {
@@ -99,6 +92,16 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
+        public void AppendValue(object value) {
+            if (value is string s) {
+                Value += s;
+            }
+            TypedValue = value;
+        }
+
+        public IDomValue Clone() {
+            return this;
+        }
     }
 }
 

@@ -35,7 +35,7 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
         [Theory]
         [InlineData(typeof(Activation))]
         [InlineData(typeof(DomElement))]
-        [InlineData(typeof(ElementFragment))]
+        [InlineData(typeof(HxlElement))]
         [InlineData(typeof(RuntimeBinderException))]
         [XInlineData(typeof(Enumerable))] // TODO These are forwarded in netcore
         [XInlineData(typeof(XmlWriter))]
