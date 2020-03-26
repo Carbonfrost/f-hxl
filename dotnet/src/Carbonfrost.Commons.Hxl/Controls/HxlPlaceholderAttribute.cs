@@ -22,8 +22,8 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.Commons.Hxl.Controls {
 
-    [AttributeFragmentUsage(Priority = AttributeFragmentPriority.Layout)]
-    public class HxlPlaceholderAttribute : AttributeFragment {
+    [HxlAttributeUsage(Priority = AttributeFragmentPriority.Layout)]
+    public class HxlPlaceholderAttribute : HxlAttribute {
 
         private string _placeholder;
 
@@ -40,11 +40,11 @@ namespace Carbonfrost.Commons.Hxl.Controls {
         public HxlPlaceholderAttribute() : base("hxl:placeholder") {
         }
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             return new PlaceholderTemplate(this.Placeholder);
         }
 
-        class PlaceholderTemplate : ElementTemplate {
+        class PlaceholderTemplate : HxlElementTemplate {
 
             private readonly string name;
 

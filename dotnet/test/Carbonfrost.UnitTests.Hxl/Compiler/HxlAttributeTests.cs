@@ -1,13 +1,11 @@
 //
-// - AttributeFragmentTests.cs -
-//
-// Copyright 2014 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2014, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +21,7 @@ using Carbonfrost.Commons.Spec;
 
 namespace Carbonfrost.UnitTests.Hxl.Compiler {
 
-    public class AttributeFragmentTests {
+    public class HxlAttributeTests {
 
         class B {
             public string C { get { return null;  } }
@@ -31,7 +29,7 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
 
         [Fact]
         public void ImplicitName_should_remove_affixes() {
-            Assert.Equal("my", AttributeFragment.GetImplicitName(typeof(MyAttributeFragment)));
+            Assert.Equal("my", HxlAttribute.GetImplicitName(typeof(MyAttributeFragment)));
         }
 
         // TODO Technically, web-dom expects that attributes are never instantiated

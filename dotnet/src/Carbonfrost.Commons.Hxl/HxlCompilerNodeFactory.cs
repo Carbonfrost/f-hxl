@@ -50,7 +50,7 @@ namespace Carbonfrost.Commons.Hxl {
             return CreatePICore(target);
         }
 
-        private static ProcessingInstructionFragment CreatePICore(string target) {
+        private static HxlProcessingInstruction CreatePICore(string target) {
             switch (target) {
                 case "model":
                     return new HxlModelDirective();
@@ -119,7 +119,7 @@ namespace Carbonfrost.Commons.Hxl {
 
         // TODO Implement an override version of GetAttributeNodeType (performance)
 
-        static AttributeFragment Controls(HxlQualifiedName name) {
+        static HxlAttribute Controls(HxlQualifiedName name) {
             switch (name.Name) {
                 case "layout":
                     return new HxlLayoutAttribute();
@@ -144,7 +144,7 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        static AttributeFragment HtmlControls(HxlQualifiedName name) {
+        static HxlAttribute HtmlControls(HxlQualifiedName name) {
             switch (name.Name) {
                 case "class":
                     return new HxlClassAttribute();
@@ -155,7 +155,7 @@ namespace Carbonfrost.Commons.Hxl {
             return null;
         }
 
-        static AttributeFragment Lang(HxlQualifiedName name) {
+        static HxlAttribute Lang(HxlQualifiedName name) {
             switch (name.Name) {
                 case "t":
                     return new HxlTAttribute();

@@ -22,12 +22,12 @@ using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
-    public abstract class HxlLangAttribute : AttributeFragment {
+    public abstract class HxlLangAttribute : HxlAttribute {
 
         internal HxlLangAttribute(string name) : base(name) {
         }
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             throw FutureFeatures.InterpretedLanguageElements();
         }
 

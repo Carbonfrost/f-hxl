@@ -90,11 +90,11 @@ namespace Carbonfrost.Commons.Hxl {
             var output = hxlOutput.BaseWriter;
 
             // TODO We always render element - should attribute selection be allowed to choose another element template?
-            ElementTemplate.ProcessAttributesForTemplate(element, templateContext);
-            ElementTemplate.RenderElementStart(element, output);
+            HxlElementTemplate.ProcessAttributesForTemplate(element, templateContext);
+            HxlElementTemplate.RenderElementStart(element, output);
 
             hxlOutput.Write(content.ChildNodes);
-            ElementTemplate.RenderElementEnd(element, output);
+            HxlElementTemplate.RenderElementEnd(element, output);
         }
 
         public IEnumerable<string> PlaceholderContentNames {
@@ -178,12 +178,12 @@ namespace Carbonfrost.Commons.Hxl {
         private static void AttributeAppend(DomAttribute left,
                                             string appendValue) {
             var toElement = left.OwnerElement;
-            var thunkFragment = left as AttributeFragment.ThunkFragment;
+            var thunkFragment = left as HxlAttribute.ThunkFragment;
 
             if (thunkFragment != null) {
                 toElement.RemoveAttribute(left.Name);
 
-                var combo = AttributeFragment.Combine(
+                var combo = HxlAttribute.Combine(
                     left.Name,
                     thunkFragment._action,
                     (x, y) => appendValue);
@@ -200,16 +200,16 @@ namespace Carbonfrost.Commons.Hxl {
         private static void AttributeAppend(DomAttribute left,
                                             DomAttribute append) {
             var toElement = left.OwnerElement;
-            var appendThunkFrag = append as AttributeFragment.ThunkFragment;
+            var appendThunkFrag = append as HxlAttribute.ThunkFragment;
 
             if (appendThunkFrag == null)
                 AttributeAppend(left, append.Value);
 
             else {
                 toElement.Attributes.Remove(append.Name);
-                Func<dynamic, AttributeFragment, string> thunkLeft;
+                Func<dynamic, HxlAttribute, string> thunkLeft;
 
-                var leftThunkFrag = left as AttributeFragment.ThunkFragment;
+                var leftThunkFrag = left as HxlAttribute.ThunkFragment;
                 if (leftThunkFrag == null) {
                     // No need to create a closure on the whole attribute
                     string leftValue = left.Value;
@@ -219,7 +219,7 @@ namespace Carbonfrost.Commons.Hxl {
                     thunkLeft = leftThunkFrag._action;
                 }
 
-                var attr = AttributeFragment.Combine(left.Name, thunkLeft, appendThunkFrag._action);
+                var attr = HxlAttribute.Combine(left.Name, thunkLeft, appendThunkFrag._action);
                 toElement.Append(attr);
             }
         }

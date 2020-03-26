@@ -20,7 +20,7 @@ using Carbonfrost.Commons.Core.Runtime.Expressions;
 
 namespace Carbonfrost.UnitTests.Hxl {
 
-    public class ElementFragmentTests {
+    public class HxlElementTests {
 
         [Theory]
         [InlineData("OuterXml")]
@@ -28,7 +28,7 @@ namespace Carbonfrost.UnitTests.Hxl {
         public void ExpressionSerializationMode_should_be_hidden_for_some_properties(string name) {
             // TODO These serialization rules should be pushed down to f-web-dom (and the
             // overrides here removed)
-            var prop = typeof(ElementFragment).GetProperty(name);
+            var prop = typeof(HxlElement).GetProperty(name);
             Assert.Equal(ExpressionSerializationMode.Hidden, prop.GetExpressionSerializationMode());
         }
     }

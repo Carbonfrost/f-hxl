@@ -29,7 +29,7 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
         internal static DomObject ConvertNode(DomObject attr) {
             var __document = new HxlDocument();
             DomElement root_article = __document.CreateElement("article");
-            DomObject root_article_hxlexpressionattribute = global::Carbonfrost.Commons.Hxl.AttributeFragment.Create("id", (__closure, __self__) => string.Concat((object) (__closure.Inside)));
+            DomObject root_article_hxlexpressionattribute = global::Carbonfrost.Commons.Hxl.HxlAttribute.Create("id", (__closure, __self__) => string.Concat((object) (__closure.Inside)));
             root_article.Append(root_article_hxlexpressionattribute);
 
             var conv = HxlCompilerConverter.ChooseConverter(attr);

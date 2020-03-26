@@ -24,7 +24,7 @@ namespace Carbonfrost.Commons.Hxl {
 
     class ValueDomValue : IDomValue {
 
-        private readonly AttributeFragment _attr;
+        private readonly HxlAttribute _attr;
         private readonly PropertyInfo _pd;
         private object valueCache;
         private string textCache;
@@ -40,7 +40,7 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        public ValueDomValue(AttributeFragment attribute, PropertyInfo property) {
+        public ValueDomValue(HxlAttribute attribute, PropertyInfo property) {
             this._attr = attribute;
             this._pd = property;
         }

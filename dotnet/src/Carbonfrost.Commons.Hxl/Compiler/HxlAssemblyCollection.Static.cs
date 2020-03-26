@@ -43,7 +43,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         };
 
         static readonly Type[] NEED_HXL_TYPES = {
-            typeof(ElementFragment),
+            typeof(HxlElement),
             typeof(Activation),
             typeof(DomElement),
         };

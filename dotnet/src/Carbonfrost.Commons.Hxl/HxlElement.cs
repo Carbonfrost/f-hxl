@@ -1,13 +1,11 @@
 //
-// - ElementFragment.cs -
-//
-// Copyright 2013 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2013, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,16 +15,14 @@
 //
 
 using System;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Carbonfrost.Commons.Web.Dom;
 using Carbonfrost.Commons.Core.Runtime.Expressions;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    public abstract class ElementFragment : DomElement<ElementFragment>, IHxlNode, ITextOutput {
+    public abstract class HxlElement : DomElement<HxlElement>, IHxlNode, ITextOutput {
 
         static readonly Regex ELEMENT = new Regex("(^Hxl)|(Element$)|(ElementFragment$)", RegexOptions.IgnoreCase);
 
@@ -34,7 +30,7 @@ namespace Carbonfrost.Commons.Hxl {
         private DomStringTokenList classList;
 
         [ExpressionSerializationMode(ExpressionSerializationMode.Hidden)]
-        public Action<HxlTemplateContext, ElementFragment> Rendering { get; set; }
+        public Action<HxlTemplateContext, HxlElement> Rendering { get; set; }
 
         public HxlTemplateContext TemplateContext {
             get;
@@ -83,10 +79,10 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        protected ElementFragment()
+        protected HxlElement()
             : base() {}
 
-        protected ElementFragment(string name) : base(name) {
+        protected HxlElement(string name) : base(name) {
         }
 
         public void RenderBody() {
@@ -124,7 +120,7 @@ namespace Carbonfrost.Commons.Hxl {
             visitor.Visit(this);
         }
 
-        public static ElementFragment FromText(string text) {
+        public static HxlElement FromText(string text) {
             return new LiteralFragment(text);
         }
 
@@ -172,22 +168,22 @@ namespace Carbonfrost.Commons.Hxl {
         // TODO Technically, any markup can be written by element fragments, which makes them more like
         // macros or PIs (design)
 
-        public static ElementFragment Create(Action<dynamic, ElementFragment> action) {
+        public static HxlElement Create(Action<dynamic, HxlElement> action) {
             if (action == null)
                 return new NullFragment();
             else
                 return new ActionFragment(action);
         }
 
-        sealed class NullFragment : ElementFragment {
+        sealed class NullFragment : HxlElement {
             public override void Render() {}
         }
 
-        sealed class ActionFragment : ElementFragment {
+        sealed class ActionFragment : HxlElement {
 
-            private readonly Action<dynamic, ElementFragment> _action;
+            private readonly Action<dynamic, HxlElement> _action;
 
-            public ActionFragment(Action<dynamic, ElementFragment> action) {
+            public ActionFragment(Action<dynamic, HxlElement> action) {
                 _action = action;
             }
 
@@ -196,7 +192,7 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        sealed class LiteralFragment : ElementFragment {
+        sealed class LiteralFragment : HxlElement {
 
             private readonly string literal;
 

@@ -20,8 +20,8 @@ using Carbonfrost.Commons.Web.Dom;
 namespace Carbonfrost.Commons.Hxl {
 
     public interface IHxlVisitor : IDomNodeVisitor {
-        void Visit(AttributeFragment attribute);
-        void Visit(ElementFragment element);
-        void Visit(ProcessingInstructionFragment macro);
+        void Visit(HxlAttribute attribute);
+        void Visit(HxlElement element);
+        void Visit(HxlProcessingInstruction macro);
     }
 }

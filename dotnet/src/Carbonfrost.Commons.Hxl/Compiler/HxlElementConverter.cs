@@ -40,12 +40,12 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             if (element is HxlRenderWorkElement)
                 return Noop;
 
-            if (element is ElementFragment)
+            if (element is HxlElement)
                 return Server;
 
             // If element contains any server attributes (AttributeFragment), then emit
             // a retained node
-            if (element.Attributes.Any(t => t is AttributeFragment))
+            if (element.Attributes.Any(t => t is HxlAttribute))
                 return Default;
 
             return Default;

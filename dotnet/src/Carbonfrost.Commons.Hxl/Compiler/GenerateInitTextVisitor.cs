@@ -69,7 +69,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             DoAppend(varName);
         }
 
-        protected override void VisitProcessingInstructionFragment(ProcessingInstructionFragment fragment) {
+        protected override void VisitProcessingInstructionFragment(HxlProcessingInstruction fragment) {
             // TODO This shouldn't be here (HxlDocument.CreatePI should init this)
             Activation.Initialize(fragment, HxlDirective.Parse(fragment.Data).Select(t => new KeyValuePair<string, object>(t.Key, t.Value)));
             fragment.GetInitCode("m", this, this.CurrentOutput);
@@ -90,7 +90,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             CurrentOutput.WriteLine("{0}.AppendText(\"{1}\");", parent, CodeUtility.Escape(element.Data));
         }
 
-        protected override void VisitElementFragment(ElementFragment fragment) {
+        protected override void VisitElementFragment(HxlElement fragment) {
             var hxlRenderElement = fragment as HxlRenderWorkElement;
 
             if (hxlRenderElement != null) {
@@ -119,7 +119,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             DoAppend(varName);
         }
 
-        protected override void VisitAttributeFragment(AttributeFragment fragment) {
+        protected override void VisitAttributeFragment(HxlAttribute fragment) {
             HxlExpressionAttribute werk = fragment as HxlExpressionAttribute;
 
             if (werk == null) {
@@ -162,7 +162,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             string renderName = NewVariable("_Render" + slug, false, true);
             string varName = SafeNewVariable(renderName);
 
-            CurrentOutput.WriteLine("{0} = global::{2}.Create({1});", varName, renderName.TrimStart('_'), typeof(ElementFragment).FullName);
+            CurrentOutput.WriteLine("{0} = global::{2}.Create({1});", varName, renderName.TrimStart('_'), typeof(HxlElement).FullName);
 
             stack.Push(varName);
             PushRenderIsland(renderName.TrimStart('_'));

@@ -22,11 +22,11 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    sealed class AsyncTemplate : ElementTemplate {
+    sealed class AsyncTemplate : HxlElementTemplate {
 
-        private readonly ElementTemplate _template;
+        private readonly HxlElementTemplate _template;
 
-        public AsyncTemplate(ElementTemplate template) {
+        public AsyncTemplate(HxlElementTemplate template) {
             _template = template;
         }
 

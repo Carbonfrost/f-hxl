@@ -55,8 +55,8 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             StringWriter fore = new StringWriter();
             StringWriter aft = new StringWriter();
 
-            ElementTemplate.RenderElementStart(e, fore);
-            ElementTemplate.RenderElementEnd(e, aft);
+            HxlElementTemplate.RenderElementStart(e, fore);
+            HxlElementTemplate.RenderElementEnd(e, aft);
             HxlRenderWorkElement frag = (HxlRenderWorkElement) e.ChildNodes[0];
             List<string> pre = new List<string>();
             List<string> post = new List<string>();
@@ -82,9 +82,9 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
             // TODO There might be annotation types that specifically prevent inlining - this is too broad (performance)
             return node.IsElement
-                && !(node is ElementFragment) // server element
+                && !(node is HxlElement) // server element
                 && node.ChildNodes.Count == 1
-                && !node.Attributes.Any(t => t is AttributeFragment)
+                && !node.Attributes.Any(t => t is HxlAttribute)
                 && node.ChildNodes[0] is HxlRenderWorkElement
                 && !node.Annotations<object>().Any();
         }

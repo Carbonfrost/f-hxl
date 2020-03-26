@@ -29,9 +29,9 @@ namespace Carbonfrost.Commons.Hxl {
     public class HxlProviderFactory : DomProviderFactory {
 
         static readonly HashSet<Type> PROVIDER_TYPES = new HashSet<Type> {
-            typeof(ElementFragment),
-            typeof(ProcessingInstructionFragment),
-            typeof(AttributeFragment),
+            typeof(HxlElement),
+            typeof(HxlProcessingInstruction),
+            typeof(HxlAttribute),
             typeof(HxlDocument),
             typeof(HxlDocumentFragment),
             typeof(IHxlDocumentAccessor),
@@ -72,10 +72,10 @@ namespace Carbonfrost.Commons.Hxl {
             if (providerObjectType == null) {
                 throw new ArgumentNullException(nameof(providerObjectType));
             }
-            if (typeof(ElementFragment).GetTypeInfo().IsAssignableFrom(providerObjectType)) {
+            if (typeof(HxlElement).GetTypeInfo().IsAssignableFrom(providerObjectType)) {
                 return ElementName(providerObjectType);
 
-            } else if (typeof(AttributeFragment).GetTypeInfo().IsAssignableFrom(providerObjectType)) {
+            } else if (typeof(HxlAttribute).GetTypeInfo().IsAssignableFrom(providerObjectType)) {
                 return AttributeName(providerObjectType);
 
             }
@@ -99,11 +99,11 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         static string ElementName(Type type) {
-            return FindPrefix(type) + ElementFragment.GetImplicitName(type);
+            return FindPrefix(type) + HxlElement.GetImplicitName(type);
         }
 
         static string AttributeName(Type type) {
-            return FindPrefix(type) + AttributeFragment.GetImplicitName(type);
+            return FindPrefix(type) + HxlAttribute.GetImplicitName(type);
         }
 
         static string FindPrefix(Type dt) {

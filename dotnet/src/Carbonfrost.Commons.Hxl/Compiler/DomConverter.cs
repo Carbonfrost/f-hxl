@@ -58,7 +58,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             int pos = -1;
 
             if (macro != null
-                && (macro.Target == "xml" || (macro is ProcessingInstructionFragment))) {
+                && (macro.Target == "xml" || (macro is HxlProcessingInstruction))) {
                 _current.Append(macro);
                 AddImplicitType(macro.GetType());
 

@@ -24,7 +24,7 @@ using System.Linq;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
-    class HxlRenderWorkElement : ElementFragment {
+    class HxlRenderWorkElement : HxlElement {
 
         private readonly string[] pre, post;
 

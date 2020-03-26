@@ -1,13 +1,11 @@
 //
-// - ElementTemplateInfo.cs -
-//
-// Copyright 2013 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2013, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,13 +16,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using Carbonfrost.Commons.Core;
 using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    public class ElementTemplateInfo : IEquatable<ElementTemplateInfo> {
+    public class HxlElementTemplateInfo : IEquatable<HxlElementTemplateInfo> {
 
         private readonly DomStringTokenList _classList;
         private readonly string _element;
@@ -47,12 +45,12 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        public ElementTemplateInfo(string element)
+        public HxlElementTemplateInfo(string element)
             : this(element, null)
         {
         }
 
-        public ElementTemplateInfo(string element, DomStringTokenList classList) {
+        public HxlElementTemplateInfo(string element, DomStringTokenList classList) {
             if (element == null)
                 throw new ArgumentNullException("element");
             if (string.IsNullOrEmpty(element))
@@ -67,7 +65,7 @@ namespace Carbonfrost.Commons.Hxl {
             _element = element;
         }
 
-        public bool Equals(ElementTemplateInfo other) {
+        public bool Equals(HxlElementTemplateInfo other) {
             if (other == null)
                 return false;
 
@@ -76,7 +74,7 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         public override bool Equals(object obj)  {
-            ElementTemplateInfo other = obj as ElementTemplateInfo;
+            HxlElementTemplateInfo other = obj as HxlElementTemplateInfo;
             return Equals(other);
         }
 
@@ -89,7 +87,7 @@ namespace Carbonfrost.Commons.Hxl {
             return hashCode;
         }
 
-        public static bool operator ==(ElementTemplateInfo lhs, ElementTemplateInfo rhs) {
+        public static bool operator ==(HxlElementTemplateInfo lhs, HxlElementTemplateInfo rhs) {
             if (ReferenceEquals(lhs, rhs))
                 return true;
 
@@ -98,7 +96,7 @@ namespace Carbonfrost.Commons.Hxl {
             return lhs.Equals(rhs);
         }
 
-        public static bool operator !=(ElementTemplateInfo lhs, ElementTemplateInfo rhs) {
+        public static bool operator !=(HxlElementTemplateInfo lhs, HxlElementTemplateInfo rhs) {
             return !(lhs == rhs);
         }
 

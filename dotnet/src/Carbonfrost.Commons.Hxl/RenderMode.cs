@@ -27,11 +27,10 @@ using Carbonfrost.Commons.Core;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    // [ValueSerializer(typeof(RenderModeConverter))]
     public struct RenderMode : IEquatable<RenderMode> {
 
         private readonly string _name;
-        private readonly Func<IElementTemplate> _templateThunk;
+        private readonly Func<IHxlElementTemplate> _templateThunk;
 
         public string Name {
             get {
@@ -42,15 +41,15 @@ namespace Carbonfrost.Commons.Hxl {
         // TODO Pseudo enum
 
         public static readonly RenderMode Default
-            = new RenderMode(() => ElementTemplate.Default, "default");
+            = new RenderMode(() => HxlElementTemplate.Default, "default");
 
         public static readonly RenderMode Skip
-            = new RenderMode(() => ElementTemplate.Skip, "skip");
+            = new RenderMode(() => HxlElementTemplate.Skip, "skip");
 
         private static readonly IDictionary<string, RenderMode> DEFAULT_MODES
             = GetDefaultModes();
 
-        private RenderMode(Func<IElementTemplate> template, string name) {
+        private RenderMode(Func<IHxlElementTemplate> template, string name) {
             this._name = name;
             this._templateThunk = template;
         }
@@ -78,7 +77,7 @@ namespace Carbonfrost.Commons.Hxl {
             throw new NotImplementedException();
         }
 
-        internal IElementTemplate ToTemplate() {
+        internal IHxlElementTemplate ToTemplate() {
             return _templateThunk();
         }
 

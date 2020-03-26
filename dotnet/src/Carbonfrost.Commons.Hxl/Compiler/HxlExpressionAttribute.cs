@@ -21,7 +21,7 @@ using System.IO;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
-    class HxlExpressionAttribute : AttributeFragment {
+    class HxlExpressionAttribute : HxlAttribute {
 
         readonly string attrName;
         readonly string code;
@@ -34,7 +34,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         internal void GetInitCode(string variable, IHxlTemplateEmitter context, TextWriter tw) {
             // TODO Possibly better to use other name in this attribute render closure
             // HACK __self__ is a hack
-            tw.Write("{3} = global::{0}.Create(\"{2}\", (__closure, __self__) => {1});" + Environment.NewLine, typeof(AttributeFragment).FullName, code, attrName, variable);
+            tw.Write("{3} = global::{0}.Create(\"{2}\", (__closure, __self__) => {1});" + Environment.NewLine, typeof(HxlAttribute).FullName, code, attrName, variable);
         }
     }
 }

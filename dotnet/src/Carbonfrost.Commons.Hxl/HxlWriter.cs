@@ -158,15 +158,15 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         protected override void WriteElement(DomElement element) {
-            var frag = element as ElementFragment;
+            var frag = element as HxlElement;
             if (frag != null) {
                 WriteElementFragment(frag);
                 return;
             }
 
             // TODO Missing HTML settings and pretty print semantics
-            IElementTemplate template = ElementTemplate.ProcessAttributesForTemplate(element, TemplateContext);
-            template = template ?? element.GetElementTemplate() ?? ElementTemplate.Default;
+            IHxlElementTemplate template = HxlElementTemplate.ProcessAttributesForTemplate(element, TemplateContext);
+            template = template ?? element.GetElementTemplate() ?? HxlElementTemplate.Default;
 
             template.Render(element, this);
         }
@@ -272,7 +272,7 @@ namespace Carbonfrost.Commons.Hxl {
             throw new NotImplementedException();
         }
 
-        private void WriteElementFragment(ElementFragment fragment) {
+        private void WriteElementFragment(HxlElement fragment) {
             fragment.Render_(TemplateContext, this);
         }
 

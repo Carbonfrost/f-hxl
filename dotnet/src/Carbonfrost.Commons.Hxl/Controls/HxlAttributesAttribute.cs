@@ -22,13 +22,13 @@ using Carbonfrost.Commons.Hxl;
 
 namespace Carbonfrost.Commons.Hxl.Controls {
 
-    public class HxlAttributesAttribute : AttributeFragment {
+    public class HxlAttributesAttribute : HxlAttribute {
 
         public HxlAttributesAttribute() : base("hxl:attributes") {}
 
-        protected override IElementTemplate OnElementRendering() {
+        protected override IHxlElementTemplate OnElementRendering() {
             object body = ((dynamic) TemplateContext).Body;
-            var frag = body as ElementFragment;
+            var frag = body as HxlElement;
 
             if (frag == null)
                 Write(body);

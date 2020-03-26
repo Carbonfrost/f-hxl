@@ -18,7 +18,7 @@ using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    public abstract class NodeFragmentVisitor : DomNodeVisitor, IHxlVisitor {
+    public abstract class HxlVisitor : DomNodeVisitor, IHxlVisitor {
 
         protected override void VisitProcessingInstruction(DomProcessingInstruction instruction) {
             DefaultVisit(instruction);
@@ -28,27 +28,27 @@ namespace Carbonfrost.Commons.Hxl {
             DefaultVisit(element);
         }
 
-        protected virtual void VisitAttributeFragment(AttributeFragment fragment) {
+        protected virtual void VisitAttributeFragment(HxlAttribute fragment) {
             DefaultVisit(fragment);
         }
 
-        protected virtual void VisitProcessingInstructionFragment(ProcessingInstructionFragment fragment) {
+        protected virtual void VisitProcessingInstructionFragment(HxlProcessingInstruction fragment) {
             DefaultVisit(fragment);
         }
 
-        protected virtual void VisitElementFragment(ElementFragment fragment) {
+        protected virtual void VisitElementFragment(HxlElement fragment) {
             DefaultVisit(fragment);
         }
 
-        void IHxlVisitor.Visit(AttributeFragment attribute) {
+        void IHxlVisitor.Visit(HxlAttribute attribute) {
             VisitAttributeFragment(attribute);
         }
 
-        void IHxlVisitor.Visit(ElementFragment element) {
+        void IHxlVisitor.Visit(HxlElement element) {
             VisitElementFragment(element);
         }
 
-        void IHxlVisitor.Visit(ProcessingInstructionFragment macro) {
+        void IHxlVisitor.Visit(HxlProcessingInstruction macro) {
             VisitProcessingInstructionFragment(macro);
         }
     }

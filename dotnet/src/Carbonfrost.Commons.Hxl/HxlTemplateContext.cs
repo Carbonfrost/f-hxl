@@ -37,23 +37,6 @@ namespace Carbonfrost.Commons.Hxl {
         private readonly PropertyProviderCollection _dataProviders = new PropertyProviderCollection();
         private HxlMasterInfo _masterInfo;
         private IList<BufferContent> _buffers;
-        private IHxlRenderingProvider _renderingProvider;
-
-        public IHxlRenderingProvider RenderingProvider {
-            get {
-                if (_renderingProvider != null) {
-                    return _renderingProvider;
-                }
-                if (Parent != null) {
-                    return Parent.RenderingProvider;
-                }
-
-                return HxlRenderingProvider.Null;
-            }
-            set {
-                _renderingProvider = value;
-            }
-        }
 
         public IHxlTemplateFactory TemplateFactory {
             get {

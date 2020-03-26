@@ -21,7 +21,7 @@ using Carbonfrost.Commons.Core.Runtime;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
 
-    public abstract class HxlDirective : ProcessingInstructionFragment, IPropertiesContainer {
+    public abstract class HxlDirective : HxlProcessingInstruction, IPropertiesContainer {
 
         // TODO Support values outside of quotes, support single quotes
 

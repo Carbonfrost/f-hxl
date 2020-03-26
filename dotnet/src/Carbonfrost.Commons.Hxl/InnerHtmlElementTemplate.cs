@@ -22,7 +22,7 @@ using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    class InnerHtmlElementTemplate : IElementTemplate {
+    class InnerHtmlElementTemplate : IHxlElementTemplate {
 
         public void Render(DomElement element,
                            HxlWriter output) {

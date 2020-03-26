@@ -81,7 +81,7 @@ namespace Carbonfrost.Commons.Hxl {
         static string[] GetWords(Type t) {
             string name;
 
-            if (typeof(AttributeFragment).IsAssignableFrom(t)) {
+            if (typeof(HxlAttribute).IsAssignableFrom(t)) {
                 name = ATTRIBUTE.Replace(t.Name, string.Empty);
             } else {
                 name = ELEMENT.Replace(t.Name, string.Empty);

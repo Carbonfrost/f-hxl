@@ -30,15 +30,15 @@ namespace Carbonfrost.UnitTests.Hxl {
 
         private IEnumerable<object> ExampleProviderObjects {
             get {
-                yield return ElementFragment.Create((d, e) => {});
-                yield return AttributeFragment.Create("ok", (d, e) => "");
+                yield return HxlElement.Create((d, e) => {});
+                yield return HxlAttribute.Create("ok", (d, e) => "");
             }
         }
 
         [Theory]
-        [InlineData(typeof(AttributeFragment))]
-        [InlineData(typeof(ElementFragment))]
-        [InlineData(typeof(ProcessingInstructionFragment))]
+        [InlineData(typeof(HxlAttribute))]
+        [InlineData(typeof(HxlElement))]
+        [InlineData(typeof(HxlProcessingInstruction))]
         [InlineData(typeof(HxlDocument))]
         [InlineData(typeof(HxlDocumentFragment))]
         public void IsProviderObject_should_match_known_types(Type type) {

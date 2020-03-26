@@ -43,7 +43,7 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
             var attr = doc.CreateAttribute("class");
             attr.Value = "no $myExpressions";
 
-            var expected = "myvar = global::Carbonfrost.Commons.Hxl.AttributeFragment.Create(\"class\", (__closure, __self__) => string.Concat((object) \"no \", (__closure.MyExpressions)));" + Environment.NewLine;
+            var expected = "myvar = global::Carbonfrost.Commons.Hxl.HxlAttribute.Create(\"class\", (__closure, __self__) => string.Concat((object) \"no \", (__closure.MyExpressions)));" + Environment.NewLine;
             var tw = new StringWriter();
             ((HxlExpressionAttribute) ConvertNode(attr)).GetInitCode("myvar", null, tw); // new IndentedTextWriter(tw, "    "));
             string text = tw.ToString();

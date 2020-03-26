@@ -1,13 +1,11 @@
 //
-// - AttributeFragment.cs -
-//
-// Copyright 2013 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2013, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,19 +15,15 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Carbonfrost.Commons.Core;
-using Carbonfrost.Commons.Core.Runtime;
 using Carbonfrost.Commons.Core.Runtime.Expressions;
 using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    public abstract class AttributeFragment : DomAttribute<AttributeFragment>, IHxlNode, ITextOutput {
+    public abstract class HxlAttribute : DomAttribute<HxlAttribute>, IHxlNode, ITextOutput {
 
         private static volatile int globalIndex;
         private HxlTemplateContext _templateContext;
@@ -41,7 +35,7 @@ namespace Carbonfrost.Commons.Hxl {
         // HACK This action to fulfill pre render eval is tacky.
 
         [ExpressionSerializationMode(ExpressionSerializationMode.Hidden)]
-        public Action<HxlTemplateContext, AttributeFragment> Rendering { get; set; }
+        public Action<HxlTemplateContext, HxlAttribute> Rendering { get; set; }
 
         public HxlTemplateContext TemplateContext {
             get {
@@ -49,12 +43,12 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        protected AttributeFragment()
+        protected HxlAttribute()
             : base() {
             SetupValue();
         }
 
-        protected AttributeFragment(string name)
+        protected HxlAttribute(string name)
             : base(name) {
             SetupValue();
         }
@@ -66,7 +60,7 @@ namespace Carbonfrost.Commons.Hxl {
                 SetValue(new ValueDomValue(this, pd));
         }
 
-        public static AttributeFragment Create(string name, Func<dynamic, AttributeFragment, string> valueFactory) {
+        public static HxlAttribute Create(string name, Func<dynamic, HxlAttribute, string> valueFactory) {
             if (name == null)
                 throw new ArgumentNullException("name");
             if (string.IsNullOrEmpty(name))
@@ -86,12 +80,12 @@ namespace Carbonfrost.Commons.Hxl {
                 return result.ToLowerInvariant();
         }
 
-        internal static AttributeFragment Combine(
+        internal static HxlAttribute Combine(
             string name,
-            Func<dynamic, AttributeFragment, string> thunk1,
-            Func<dynamic, AttributeFragment, string> thunk2) {
+            Func<dynamic, HxlAttribute, string> thunk1,
+            Func<dynamic, HxlAttribute, string> thunk2) {
 
-            Func<dynamic, AttributeFragment, string> combined = (s, self) => string.Concat(thunk1(s, self), " ", thunk2(s, self));
+            Func<dynamic, HxlAttribute, string> combined = (s, self) => string.Concat(thunk1(s, self), " ", thunk2(s, self));
             return Create(name, combined);
         }
 
@@ -144,11 +138,11 @@ namespace Carbonfrost.Commons.Hxl {
             return "c:__attr" + (globalIndex++);
         }
 
-        protected virtual IElementTemplate OnElementRendering() {
+        protected virtual IHxlElementTemplate OnElementRendering() {
             return null;
         }
 
-        internal IElementTemplate OnElementRendering_(HxlTemplateContext context) {
+        internal IHxlElementTemplate OnElementRendering_(HxlTemplateContext context) {
             try {
                 this._templateContext = context;
                 this._outputBuffer = CreateOutputBuffer();
@@ -197,14 +191,14 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         internal static bool IsClientAttribute(DomAttribute a) {
-            return (a is ThunkFragment) || !(a is AttributeFragment);
+            return (a is ThunkFragment) || !(a is HxlAttribute);
         }
 
-        internal sealed class ThunkFragment : AttributeFragment {
+        internal sealed class ThunkFragment : HxlAttribute {
 
-            internal readonly Func<dynamic, AttributeFragment, string> _action;
+            internal readonly Func<dynamic, HxlAttribute, string> _action;
 
-            public ThunkFragment(string name, Func<dynamic, AttributeFragment, string> action) : base(name) {
+            public ThunkFragment(string name, Func<dynamic, HxlAttribute, string> action) : base(name) {
                 _action = action;
                 this.Rendering = (context, self) => this.Value = action(context, self);
             }
