@@ -23,11 +23,7 @@
 #
 .PHONY: dotnet/restore dotnet/build dotnet/test dotnet/publish dotnet/push
 
-# The configuration to build (probably "Debug" or "Release")
-CONFIGURATION?=Release
-
-# The location of the NuGet configuration file
-NUGET_CONFIG_FILE?=./nuget.config
+-include variables.mk
 
 ## Set up dotnet configuration for NuGet
 dotnet/configure: -requirements-dotnet -check-env-NUGET_SOURCE_URL -check-env-NUGET_PASSWORD -check-env-NUGET_USER_NAME -check-env-NUGET_CONFIG_FILE
@@ -42,6 +38,7 @@ dotnet/configure: -requirements-dotnet -check-env-NUGET_SOURCE_URL -check-env-NU
 ## Restore package dependencies
 dotnet/restore: -requirements-dotnet
 	@ dotnet restore ./dotnet
+	@ dotnet tool restore
 
 ## Build the dotnet solution
 dotnet/build: dotnet/restore -dotnet/build

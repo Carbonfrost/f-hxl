@@ -31,11 +31,11 @@ NUGET_DIR=$(HOME)/.nuget/packages
 
 -dotnet/test:
 	fspec -i dotnet/test/Carbonfrost.UnitTests.Hxl/Content \
+		-p System.Memory/4.5.2 \
+		-p System.Text.Encoding.CodePages/4.5.1 \
+		-p System.Runtime.CompilerServices.Unsafe/4.5.2 \
+		-p System.Threading.Tasks.Extensions/4.5.2 \
 		-- \
-		$(NUGET_DIR)/System.Memory/4.5.2/lib/netstandard2.0/System.Memory.dll \
-		$(NUGET_DIR)/System.Text.Encoding.CodePages/4.5.1/lib/netstandard2.0/System.Text.Encoding.CodePages.dll \
-		$(NUGET_DIR)/System.Runtime.CompilerServices.Unsafe/4.5.2/lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll \
-		$(NUGET_DIR)/System.Threading.Tasks.Extensions/4.5.2/lib/netstandard2.0/System.Threading.Tasks.Extensions.dll \
 		$(PUBLISH_DIR)/Carbonfrost.UnitTests.Hxl.dll
 
 -install-dotnet-%: -check-env-CONFIGURATION -check-env-FRAMEWORK -check-env-PREFIX

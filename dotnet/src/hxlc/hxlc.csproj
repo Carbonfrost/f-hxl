@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Hxlc</RootNamespace>
     <OutputType>Exe</OutputType>
+    <PackageId>hxlc</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Copyright>Copyright 2010-2020 Carbonfrost Systems, Inc.</Copyright>
     <Authors>Carbonfrost</Authors>
@@ -13,6 +14,8 @@
     <PackageProjectUrl>https://github.com/Carbonfrost/f-hxl</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Carbonfrost/f-hxl</RepositoryUrl>
     <PackAsTool>true</PackAsTool>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Carbonfrost.Commons.Hxl</RootNamespace>
+    <PackageId>Carbonfrost.Commons.Hxl</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Copyright>Copyright 2013-2016, 2020 Carbonfrost Systems, Inc.</Copyright>
     <Authors>Carbonfrost</Authors>
@@ -11,6 +12,8 @@
     </Description>
     <PackageProjectUrl>https://github.com/Carbonfrost/f-hxl</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Carbonfrost/f-hxl</RepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>

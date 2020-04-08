@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>false</IsPackable>
+    <RootNamespace></RootNamespace>
+    <Copyright>Copyright 2013-2016, 2020 Carbonfrost Systems, Inc.</Copyright>
+    <Authors>Carbonfrost</Authors>
+    <Description>Unit tests for Carbonfrost.Commons.Hxk</Description>
+    <RepositoryUrl>https://github.com/Carbonfrost/f-hxl</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
