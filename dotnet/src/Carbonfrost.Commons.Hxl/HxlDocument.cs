@@ -21,7 +21,7 @@ using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
 
-    public class HxlDocument : DomDocument {
+    public class HxlDocument : DomDocument, IHxlDocumentWriter {
 
         private readonly HxlProviderFactory _providerFactory;
 

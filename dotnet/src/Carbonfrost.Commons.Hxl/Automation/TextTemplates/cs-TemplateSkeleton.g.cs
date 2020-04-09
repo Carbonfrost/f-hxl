@@ -164,7 +164,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             #line hidden
             
             #line 22 ""
-            this.Write("          , global::Carbonfrost.Commons.Hxl.IHxlDocumentAccessor\n");
+            this.Write("          , global::Carbonfrost.Commons.Hxl.IHxlDocumentFragmentAccessor\n");
             
             #line default
             #line hidden
@@ -188,12 +188,13 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             #line hidden
             
             #line 27 ""
-            this.Write(@"        private global::Carbonfrost.Commons.Hxl.HxlDocument __document;
+            this.Write(@"        private global::Carbonfrost.Commons.Hxl.HxlDocumentFragment __document;
 
-        global::Carbonfrost.Commons.Hxl.HxlDocument global::Carbonfrost.Commons.Hxl.IHxlDocumentAccessor.Document {
+        global::Carbonfrost.Commons.Hxl.HxlDocumentFragment global::Carbonfrost.Commons.Hxl.IHxlDocumentFragmentAccessor.DocumentFragment {
             get {
-                if (!this.IsInitialized)
+                if (!this.IsInitialized) {
                     this.Initialize();
+                }
 
                 return this.__document;
             }
@@ -203,224 +204,224 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             #line default
             #line hidden
             
-            #line 37 ""
+            #line 38 ""
  } 
             
             #line default
             #line hidden
             
-            #line 38 ""
+            #line 39 ""
             this.Write("\n        private void InitializeComponent() {\n");
             
             #line default
             #line hidden
             
-            #line 40 ""
+            #line 41 ""
  if (this.InitializeComponent.Length > 0) { 
             
             #line default
             #line hidden
             
-            #line 41 ""
-            this.Write("            var __self = this;\n");
-            
-            #line default
-            #line hidden
-            
             #line 42 ""
- } 
+            this.Write("            var __self = this;\n");
             
             #line default
             #line hidden
             
             #line 43 ""
-            this.Write("\n");
+ } 
             
             #line default
             #line hidden
             
             #line 44 ""
- if (this.HasDocument) { 
+            this.Write("\n");
             
             #line default
             #line hidden
             
             #line 45 ""
-            this.Write("            this.__document = new global::Carbonfrost.Commons.Hxl.HxlDocument();\n" +
-                    "");
-            
-            #line default
-            #line hidden
-            
-            #line 46 ""
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 47 ""
-            this.Write("\n        ");
-            
-            #line default
-            #line hidden
-            
-            #line 48 ""
- foreach (var decl in this.DomNodeVariables) { 
-            
-            #line default
-            #line hidden
-            
-            #line 49 ""
-            this.Write("            global::Carbonfrost.Commons.Web.Dom.DomNode @");
-            
-            #line default
-            #line hidden
-            
-            #line 49 ""
-            this.Write(this.ToStringHelper.ToStringWithCulture( decl ));
-            
-            #line default
-            #line hidden
-            
-            #line 49 ""
-            this.Write(";\n        ");
-            
-            #line default
-            #line hidden
-            
-            #line 50 ""
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 51 ""
-            this.Write("        ");
-            
-            #line default
-            #line hidden
-            
-            #line 51 ""
- foreach (var decl in this.DomObjectVariables) { 
-            
-            #line default
-            #line hidden
-            
-            #line 52 ""
-            this.Write("            global::Carbonfrost.Commons.Web.Dom.DomObject @");
-            
-            #line default
-            #line hidden
-            
-            #line 52 ""
-            this.Write(this.ToStringHelper.ToStringWithCulture( decl ));
-            
-            #line default
-            #line hidden
-            
-            #line 52 ""
-            this.Write(";\n        ");
-            
-            #line default
-            #line hidden
-            
-            #line 53 ""
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 54 ""
-            this.Write("\n            ");
-            
-            #line default
-            #line hidden
-            
-            #line 55 ""
-            this.Write(this.ToStringHelper.ToStringWithCulture( InitializeComponent ));
-            
-            #line default
-            #line hidden
-            
-            #line 55 ""
-            this.Write("\n        }\n\n        ");
-            
-            #line default
-            #line hidden
-            
-            #line 58 ""
-            this.Write(this.ToStringHelper.ToStringWithCulture( RenderIslands ));
-            
-            #line default
-            #line hidden
-            
-            #line 58 ""
-            this.Write("\n\n        protected override void TransformTextCore() {\n");
-            
-            #line default
-            #line hidden
-            
-            #line 61 ""
- if (this.TransformTextCore.Length > 0) { 
-            
-            #line default
-            #line hidden
-            
-            #line 62 ""
-            this.Write("            var __self = this;\n");
-            
-            #line default
-            #line hidden
-            
-            #line 63 ""
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 64 ""
  if (this.HasDocument) { 
             
             #line default
             #line hidden
             
-            #line 65 ""
-            this.Write("            this.__document.WriteTo(this.Output, this.TemplateContext);\n");
+            #line 46 ""
+            this.Write("            this.__document = new global::Carbonfrost.Commons.Hxl.HxlDocumentFrag" +
+                    "ment();\n");
             
             #line default
             #line hidden
             
-            #line 66 ""
- } else { 
-            
-            #line default
-            #line hidden
-            
-            #line 67 ""
-            this.Write("            dynamic __closure = this.TemplateContext;\n");
-            
-            #line default
-            #line hidden
-            
-            #line 68 ""
+            #line 47 ""
  } 
             
             #line default
             #line hidden
             
+            #line 48 ""
+            this.Write("\n        ");
+            
+            #line default
+            #line hidden
+            
+            #line 49 ""
+ foreach (var decl in this.DomNodeVariables) { 
+            
+            #line default
+            #line hidden
+            
+            #line 50 ""
+            this.Write("            global::Carbonfrost.Commons.Web.Dom.DomNode @");
+            
+            #line default
+            #line hidden
+            
+            #line 50 ""
+            this.Write(this.ToStringHelper.ToStringWithCulture( decl ));
+            
+            #line default
+            #line hidden
+            
+            #line 50 ""
+            this.Write(";\n        ");
+            
+            #line default
+            #line hidden
+            
+            #line 51 ""
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 52 ""
+            this.Write("        ");
+            
+            #line default
+            #line hidden
+            
+            #line 52 ""
+ foreach (var decl in this.DomObjectVariables) { 
+            
+            #line default
+            #line hidden
+            
+            #line 53 ""
+            this.Write("            global::Carbonfrost.Commons.Web.Dom.DomObject @");
+            
+            #line default
+            #line hidden
+            
+            #line 53 ""
+            this.Write(this.ToStringHelper.ToStringWithCulture( decl ));
+            
+            #line default
+            #line hidden
+            
+            #line 53 ""
+            this.Write(";\n        ");
+            
+            #line default
+            #line hidden
+            
+            #line 54 ""
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 55 ""
+            this.Write("\n            ");
+            
+            #line default
+            #line hidden
+            
+            #line 56 ""
+            this.Write(this.ToStringHelper.ToStringWithCulture( InitializeComponent ));
+            
+            #line default
+            #line hidden
+            
+            #line 56 ""
+            this.Write("\n        }\n\n        ");
+            
+            #line default
+            #line hidden
+            
+            #line 59 ""
+            this.Write(this.ToStringHelper.ToStringWithCulture( RenderIslands ));
+            
+            #line default
+            #line hidden
+            
+            #line 59 ""
+            this.Write("\n\n        protected override void TransformTextCore() {\n");
+            
+            #line default
+            #line hidden
+            
+            #line 62 ""
+ if (this.TransformTextCore.Length > 0) { 
+            
+            #line default
+            #line hidden
+            
+            #line 63 ""
+            this.Write("            var __self = this;\n");
+            
+            #line default
+            #line hidden
+            
+            #line 64 ""
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 65 ""
+ if (this.HasDocument) { 
+            
+            #line default
+            #line hidden
+            
+            #line 66 ""
+            this.Write("            this.__document.WriteTo(this.Output, this.TemplateContext);\n");
+            
+            #line default
+            #line hidden
+            
+            #line 67 ""
+ } else { 
+            
+            #line default
+            #line hidden
+            
+            #line 68 ""
+            this.Write("            dynamic __closure = this.TemplateContext;\n");
+            
+            #line default
+            #line hidden
+            
             #line 69 ""
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 70 ""
             this.Write("            ");
             
             #line default
             #line hidden
             
-            #line 69 ""
+            #line 70 ""
             this.Write(this.ToStringHelper.ToStringWithCulture( TransformTextCore ));
             
             #line default
             #line hidden
             
-            #line 69 ""
+            #line 70 ""
             this.Write("\n        }\n\n        protected override void InitializeCore() {\n            base.I" +
                     "nitializeCore();\n            this.InitializeComponent();\n        }\n    }\n}\n");
             

@@ -40,7 +40,7 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
             return doc.FirstChild;
         }
 
-        [XFact(Reason = "broken")]
+        [Fact]
         public void IsRetained_should_not_retain_elements_by_default() {
             string expr = "<article></article>";
             var m = Parse(expr);

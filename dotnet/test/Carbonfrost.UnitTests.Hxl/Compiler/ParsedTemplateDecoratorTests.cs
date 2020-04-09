@@ -24,27 +24,35 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
 
     public class ParsedTemplateDecoratorTests : ParsedTemplateTestBase {
 
-        [XFact(Reason = "problems with how merging attributes works")]
+        [Fact]
         public void trivial_content_decorator() {
             LoadDefault();
             GenerateAndAssert();
         }
 
-        [XFact(Reason = "problems with how merging attributes works")]
+        [Fact]
         public void merge_content_decorator() {
             LoadDefault();
             GenerateAndAssert();
         }
 
-        [XFact(Reason = "problems with how merging attributes works")]
+        [XFact(Reason = "problem with how attributes with exprs are merged in nested template contexts")]
         public void merge_content_decorator_expressions() {
             LoadDefault();
             GenerateAndAssert();
         }
 
-        [XFact(Reason = "problems with how merging attributes works")]
+        [Fact]
         public void content_decorator_html_page() {
             // <head> is implicitly merged
+            LoadDefault();
+            GenerateAndAssert();
+        }
+
+        [Fact]
+        public void content_decorator_html_doctype_page() {
+            // Having a doctype means there are multiple elements in the
+            // root of the layout
             LoadDefault();
             GenerateAndAssert();
         }

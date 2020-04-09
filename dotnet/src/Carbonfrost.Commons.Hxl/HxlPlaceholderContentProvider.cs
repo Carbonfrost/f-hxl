@@ -150,25 +150,24 @@ namespace Carbonfrost.Commons.Hxl {
 
             // TODO Use of attr.Name here might not respect xmlns (rare)
             // Merge attributes
-            foreach (var attr in fromElement.Attributes.ToArray()) {
+            foreach (var attr in fromElement.Attributes) {
 
                 // Don't copy layout attributes
-                if (IsLayoutAttr(attr))
+                if (IsLayoutAttr(attr)) {
                     continue;
+                }
 
                 var current = toElement.Attributes[attr.Name];
 
                 if (current == null) {
-                    toElement.Attributes.Add(attr);
+                    toElement.Attributes.Add(attr.Clone());
 
                 } else if (IsMerging(current.Name)) {
                     AttributeAppend(current, attr);
 
                 } else {
-
                     toElement.Attributes.Remove(attr.Name);
-                    toElement.Append(attr);
-                    toElement.Attributes.Add(attr);
+                    toElement.Attributes.Add(attr.Clone());
                 }
             }
         }
@@ -186,7 +185,8 @@ namespace Carbonfrost.Commons.Hxl {
                 var combo = HxlAttribute.Combine(
                     left.Name,
                     thunkFragment._action,
-                    (x, y) => appendValue);
+                    (x, y) => appendValue
+                );
                 toElement.Append(combo);
             }
 

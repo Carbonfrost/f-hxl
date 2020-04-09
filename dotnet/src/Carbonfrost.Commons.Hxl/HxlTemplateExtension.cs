@@ -118,30 +118,28 @@ namespace Carbonfrost.Commons.Hxl {
         // TODO May want to make a version of this virtual
 
         private void ApplyMaster() {
-            if (!this.IsMasterTemplate)
+            if (!IsMasterTemplate) {
                 return;
+            }
 
             var masterInfo = this.TemplateContext.MasterInfo;
             var placeholderContent = masterInfo.PlaceholderContent;
             var mergeAttributes = masterInfo.LayoutElement;
             var master = this;
 
-            // TODO If template isnt IHxlDocumentAccessor, then this is an error
-            var access = ((IHxlDocumentAccessor) master);
-            // The document element is c:root, so we need to find the element being
-            // actually rendered
-            // TODO What if c:root has c:text or multiple ? (rare)
-            var de = access.Document.DocumentElement;
-            de = de.ChildNodes.OfType<DomElement>().First();
+            // TODO If template isnt IHxlDocumentFragmentAccessor, then this is an error
+            // TODO It is also possible there is a document being used for a master with multiple root elements
+            var access = ((IHxlDocumentFragmentAccessor) master);
+            var de = access.DocumentFragment.FirstChild;
             HxlPlaceholderContentProvider.MergeAttributes(mergeAttributes, de);
 
             de.Attribute("data-layout", masterInfo.LayoutName);
 
             // If master has no doctype, then copy doctype from child
-            if (access.Document.ChildNodes.All(t => t.NodeType != DomNodeType.DocumentType)) {
+            if (access.DocumentFragment.ChildNodes.All(t => t.NodeType != DomNodeType.DocumentType)) {
                 var dt = mergeAttributes.ChildNodes.OfType<DomDocumentType>().FirstOrDefault();
                 if (dt != null)
-                    access.Document.ChildNodes.Insert(0, dt);
+                    access.DocumentFragment.ChildNodes.Insert(0, dt);
             }
 
             // Merge the head element if present

@@ -1,0 +1,27 @@
+master.hxl: >
+    <!doctype html>
+    <html>
+        <head> </head>
+        <body>
+            <div hxl:placeholder="header"> </div>
+        </body>
+    </html>
+    Trailing text is valid here in HXL
+
+input.hxl: >
+    <html hxl:layout="content_decorator_html_doctype_page_fixture_master_hxl">
+        <head> </head>
+        <body>
+            <div hxl:placeholdertarget="header">head</div>
+        </body>
+    </html>
+
+generated.html: >
+    <!doctype html>
+    <html data-layout="content_decorator_html_doctype_page_fixture_master_hxl">
+        <head> </head>
+        <body>
+            <div class="app-placeholder" data-placeholder="header" data-layout="content_decorator_html_doctype_page_fixture_master_hxl">head</div>
+        </body>
+    </html>
+    Trailing text is valid here in HXL

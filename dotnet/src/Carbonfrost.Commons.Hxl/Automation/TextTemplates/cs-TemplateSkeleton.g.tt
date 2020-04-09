@@ -19,17 +19,18 @@ using <#= u #>;
     <#= Accessibility #> partial class <#= ClassName #>
         : global::<#= BaseClass #>
 <# if (this.HasDocument) { #>
-          , global::Carbonfrost.Commons.Hxl.IHxlDocumentAccessor
+          , global::Carbonfrost.Commons.Hxl.IHxlDocumentFragmentAccessor
 <# } #>
     {
 
 <# if (this.HasDocument) { #>
-        private global::Carbonfrost.Commons.Hxl.HxlDocument __document;
+        private global::Carbonfrost.Commons.Hxl.HxlDocumentFragment __document;
 
-        global::Carbonfrost.Commons.Hxl.HxlDocument global::Carbonfrost.Commons.Hxl.IHxlDocumentAccessor.Document {
+        global::Carbonfrost.Commons.Hxl.HxlDocumentFragment global::Carbonfrost.Commons.Hxl.IHxlDocumentFragmentAccessor.DocumentFragment {
             get {
-                if (!this.IsInitialized)
+                if (!this.IsInitialized) {
                     this.Initialize();
+                }
 
                 return this.__document;
             }
@@ -42,7 +43,7 @@ using <#= u #>;
 <# } #>
 
 <# if (this.HasDocument) { #>
-            this.__document = new global::Carbonfrost.Commons.Hxl.HxlDocument();
+            this.__document = new global::Carbonfrost.Commons.Hxl.HxlDocumentFragment();
 <# } #>
 
         <# foreach (var decl in this.DomNodeVariables) { #>

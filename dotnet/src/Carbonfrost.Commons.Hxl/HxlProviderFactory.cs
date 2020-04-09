@@ -34,7 +34,7 @@ namespace Carbonfrost.Commons.Hxl {
             typeof(HxlAttribute),
             typeof(HxlDocument),
             typeof(HxlDocumentFragment),
-            typeof(IHxlDocumentAccessor),
+            typeof(IHxlDocumentFragmentAccessor),
 
             typeof(HxlWriter),
 
