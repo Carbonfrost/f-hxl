@@ -28,28 +28,28 @@ namespace Carbonfrost.Commons.Hxl {
             DefaultVisit(element);
         }
 
-        protected virtual void VisitAttributeFragment(HxlAttribute fragment) {
-            DefaultVisit(fragment);
+        protected virtual void VisitAttribute(HxlAttribute attribute) {
+            DefaultVisit(attribute);
         }
 
-        protected virtual void VisitProcessingInstructionFragment(HxlProcessingInstruction fragment) {
-            DefaultVisit(fragment);
+        protected virtual void VisitProcessingInstruction(HxlProcessingInstruction processingInstruction) {
+            DefaultVisit(processingInstruction);
         }
 
-        protected virtual void VisitElementFragment(HxlElement fragment) {
-            DefaultVisit(fragment);
+        protected virtual void VisitElement(HxlElement element) {
+            DefaultVisit(element);
         }
 
         void IHxlVisitor.Visit(HxlAttribute attribute) {
-            VisitAttributeFragment(attribute);
+            VisitAttribute(attribute);
         }
 
         void IHxlVisitor.Visit(HxlElement element) {
-            VisitElementFragment(element);
+            VisitElement(element);
         }
 
-        void IHxlVisitor.Visit(HxlProcessingInstruction macro) {
-            VisitProcessingInstructionFragment(macro);
+        void IHxlVisitor.Visit(HxlProcessingInstruction processingInstruction) {
+            VisitProcessingInstruction(processingInstruction);
         }
     }
 

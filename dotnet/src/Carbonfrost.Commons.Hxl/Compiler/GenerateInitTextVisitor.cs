@@ -69,7 +69,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             DoAppend(varName);
         }
 
-        protected override void VisitProcessingInstructionFragment(HxlProcessingInstruction fragment) {
+        protected override void VisitProcessingInstruction(HxlProcessingInstruction fragment) {
             // TODO This shouldn't be here (HxlDocument.CreatePI should init this)
             Activation.Initialize(fragment, HxlDirective.Parse(fragment.Data).Select(t => new KeyValuePair<string, object>(t.Key, t.Value)));
             fragment.GetInitCode("m", this, this.CurrentOutput);
@@ -90,7 +90,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             CurrentOutput.WriteLine("{0}.AppendText(\"{1}\");", parent, CodeUtility.Escape(element.Data));
         }
 
-        protected override void VisitElementFragment(HxlElement fragment) {
+        protected override void VisitElement(HxlElement fragment) {
             var hxlRenderElement = fragment as HxlRenderWorkElement;
 
             if (hxlRenderElement != null) {
@@ -119,12 +119,12 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             DoAppend(varName);
         }
 
-        protected override void VisitAttributeFragment(HxlAttribute fragment) {
-            HxlExpressionAttribute werk = fragment as HxlExpressionAttribute;
+        protected override void VisitAttribute(HxlAttribute attribute) {
+            HxlExpressionAttribute werk = attribute as HxlExpressionAttribute;
 
             if (werk == null) {
-                string variable = CodeUtility.EmitInstantiation(this.manager, this.output, fragment);
-                EmitRenderingThunk(this.output, variable, fragment);
+                string variable = CodeUtility.EmitInstantiation(this.manager, this.output, attribute);
+                EmitRenderingThunk(this.output, variable, attribute);
                 DoAppend(variable);
 
             } else {
