@@ -1,4 +1,8 @@
-.PHONY: init init-brew-deps
+.PHONY: \
+	-direnv-install \
+	-homebrew-install \
+	-init-frameworks \
+	init
 
 # To simplify things, we just try to init every framework even if
 # they are not enabled.  However, we don't want to display hint messages
@@ -7,19 +11,22 @@
 ## Initialize dependencies for developing the project
 init:
 	@ echo "Installing prerequisites and setting up the environment ..."
-	@ $(MAKE) _HIDDEN_IF_BOOTSTRAPPING=">/dev/null" \
-		-- -init-frameworks
+	@ $(MAKE) VERBOSE=$(VERBOSE) _HIDDEN_IF_BOOTSTRAPPING=">/dev/null" \
+		-- -homebrew-install -direnv-install -init-frameworks
 	@ echo "Done! 🍺"
 
-## Install software for developing on macOS
-init-brew-deps:
-	@ if [ ! $(shell command -v "brew") ]; then \
+# At a minimum, we need to install Homebrew to manage dependencies.  We
+# at least need direnv as a dependency
+# However, other brews and casks are opt-in via the use of Brewfile.
+-homebrew-install:
+	@ if ! command -v "brew" > /dev/null ; then \
 		echo >&2 "$(_FATAL_ERROR) Please install Homebrew first (https://brew.sh)"; \
 		exit 1; \
 	fi
-	$(Q) brew update $(OUTPUT_HIDDEN) && \
-		 brew tap homebrew/bundle $(OUTPUT_HIDDEN) && \
-		 brew bundle $(OUTPUT_HIDDEN) && \
-		 direnv allow $(OUTPUT_HIDDEN)
+	$(Q) brew update $(OUTPUT_HIDDEN)
 
--init-frameworks: | init-brew-deps ruby/init
+-direnv-install: -check-command-brew
+	$(Q) brew install direnv
+	$(Q) direnv allow $(OUTPUT_HIDDEN)
+
+-init-frameworks: | homebrew/init dotnet/init ruby/init
