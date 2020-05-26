@@ -15,10 +15,9 @@
 //
 
 using Carbonfrost.Commons.Web.Dom;
-using Carbonfrost.Commons.Hxl.Compiler;
 using Carbonfrost.Commons.Hxl.Controls;
 
-namespace Carbonfrost.Commons.Hxl {
+namespace Carbonfrost.Commons.Hxl.Compiler {
 
     sealed class HxlCompilerNodeFactory : HxlDomNodeFactory {
 

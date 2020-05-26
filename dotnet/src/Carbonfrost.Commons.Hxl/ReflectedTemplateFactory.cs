@@ -1,13 +1,11 @@
 //
-// - ReflectedTemplateFactory.cs -
-//
-// Copyright 2013 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2013, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Carbonfrost.Commons.Core;
+using Carbonfrost.Commons.Hxl.Compiler;
 
 namespace Carbonfrost.Commons.Hxl {
 
@@ -40,16 +39,19 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         private HxlCompiledTemplateInfoCollection RequireMap() {
-            if (_items == null)
+            if (_items == null) {
                 _items = new HxlCompiledTemplateInfoCollection(assembly);
+            }
             return _items;
         }
 
         public HxlTemplate CreateTemplate(string templateName, string templateType, IServiceProvider serviceProvider) {
-            if (templateName == null)
-                throw new ArgumentNullException("templateName");
-            if (string.IsNullOrEmpty(templateName))
-                throw Failure.EmptyString("templateName");
+            if (templateName == null) {
+                throw new ArgumentNullException(nameof(templateName));
+            }
+            if (string.IsNullOrEmpty(templateName)) {
+                throw Failure.EmptyString(nameof(templateName));
+            }
 
             var info = RequireMap().FindTemplate(templateName, templateType);
             HxlTemplate result = null;

@@ -15,7 +15,6 @@
 //
 
 using System;
-using System.Linq;
 using System.Reflection;
 using Carbonfrost.Commons.Hxl.Compiler;
 
@@ -24,8 +23,16 @@ namespace Carbonfrost.Commons.Hxl {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class HxlTemplateAttribute : Attribute  {
 
-        public string Name { get; set; }
-        public string Type { get; set; }
+        public string Name {
+            get;
+            set;
+         }
+
+        public string Type {
+            get;
+            set;
+         }
+
 
         internal static void NameOrDefault(HxlTemplate template, out string name, out string type) {
             var builder = template as IHxlTemplateBuilder;

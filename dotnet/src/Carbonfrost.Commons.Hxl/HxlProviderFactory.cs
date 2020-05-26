@@ -21,6 +21,7 @@ using System.Linq;
 using System.Reflection;
 using Carbonfrost.Commons.Core;
 using Carbonfrost.Commons.Core.Runtime;
+using Carbonfrost.Commons.Hxl.Compiler;
 using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {

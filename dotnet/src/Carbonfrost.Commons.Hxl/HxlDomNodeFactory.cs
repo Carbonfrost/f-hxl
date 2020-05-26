@@ -15,10 +15,10 @@
 //
 
 using System;
-using System.Linq;
-using System.Reflection;
+
 using Carbonfrost.Commons.Core;
 using Carbonfrost.Commons.Core.Runtime;
+using Carbonfrost.Commons.Hxl.Compiler;
 using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
@@ -78,10 +78,12 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         public sealed override DomElement CreateElement(string name) {
-            if (name == null)
-                throw new ArgumentNullException("name");
-            if (string.IsNullOrEmpty(name))
-                throw Failure.EmptyString("name");
+            if (name == null) {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (string.IsNullOrEmpty(name)) {
+                throw Failure.EmptyString(nameof(name));
+            }
 
             if (!name.Contains(":"))
                 return base.CreateElement(name);

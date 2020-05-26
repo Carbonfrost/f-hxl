@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-namespace Carbonfrost.Commons.Hxl {
+namespace Carbonfrost.Commons.Hxl.Compiler {
 
     public class HxlCompilerError {
 

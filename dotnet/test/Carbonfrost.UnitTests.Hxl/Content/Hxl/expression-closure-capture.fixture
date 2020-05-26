@@ -6,12 +6,12 @@
 output.cs: >
     ;
 
-data.properties: >-
+data.properties: |
     hello=Hi
     planets=[Mercury,Venus,Earth]
 
 generated.html: >
     <li> <em>Hi
-    Mercury</em> </li><li> <em>Hi 
+    Mercury</em> </li><li> <em>Hi
     Venus</em> </li><li> <em>Hi
     Earth</em> </li>

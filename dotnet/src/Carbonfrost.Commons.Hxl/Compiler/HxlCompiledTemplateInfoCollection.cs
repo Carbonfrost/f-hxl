@@ -1,13 +1,11 @@
 //
-// - HxlCompiledTemplateInfoCollection.cs -
-//
-// Copyright 2014 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2014, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,13 +21,14 @@ using System.Linq;
 using System.Reflection;
 using Carbonfrost.Commons.Core;
 
-namespace Carbonfrost.Commons.Hxl {
+namespace Carbonfrost.Commons.Hxl.Compiler {
 
     public class HxlCompiledTemplateInfoCollection : ReadOnlyCollection<HxlCompiledTemplateInfo> {
 
         internal static readonly HxlCompiledTemplateInfoCollection Empty = new HxlCompiledTemplateInfoCollection();
 
         private readonly ILookup<string, HxlCompiledTemplateInfo> _templates;
+        private Assembly asm;
 
         public HxlCompiledTemplateInfo this[string name] {
             get {
@@ -77,10 +76,12 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         public HxlCompiledTemplateInfo FindTemplate(string name, string type) {
-            if (name == null)
-                throw new ArgumentNullException("name");
-            if (string.IsNullOrEmpty(name))
-                throw Failure.EmptyString("name");
+            if (name == null) {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (string.IsNullOrEmpty(name)) {
+                throw Failure.EmptyString(nameof(name));
+            }
 
             var candidates = _templates[name];
 
@@ -91,10 +92,12 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         public IEnumerable<HxlCompiledTemplateInfo> FindTemplates(string name) {
-            if (name == null)
-                throw new ArgumentNullException("name");
-            if (string.IsNullOrEmpty(name))
-                throw Failure.EmptyString("name");
+            if (name == null) {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (string.IsNullOrEmpty(name)) {
+                throw Failure.EmptyString(nameof(name));
+            }
 
             return _templates[name];
         }

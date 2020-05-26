@@ -1,13 +1,11 @@
 //
-// - ProviderDomNodeFactory.cs -
-//
-// Copyright 2013 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2013, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,9 +16,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Carbonfrost.Commons.Core;
 using Carbonfrost.Commons.Core.Runtime;
+using Carbonfrost.Commons.Hxl.Compiler;
 using Carbonfrost.Commons.Web.Dom;
 
 namespace Carbonfrost.Commons.Hxl {
@@ -31,8 +29,7 @@ namespace Carbonfrost.Commons.Hxl {
         private readonly LookupBuffer attributes;
         private readonly LookupBuffer elements;
 
-        public ProviderDomNodeFactory()
-        {
+        public ProviderDomNodeFactory() {
             attributes = new LookupBuffer(typeof(HxlAttribute));
             elements = new LookupBuffer(typeof(HxlElement));
         }
@@ -65,24 +62,6 @@ namespace Carbonfrost.Commons.Hxl {
 
         // TODO Parse PIs defined outside compiler asm
 
-        //        private void RequireProviders() {
-        //            if (provideInit)
-        //                return;
-//
-        //            provideInit = true;
-//
-        //            // TODO Don't enumerate a dictionary, which forces all assemblies to load (performance)
-        //            foreach (var t in App.DescribeProviders()
-        //                     .GetProviderInfos(typeof(AttributeFragment))) {
-        //                this.attributes.TryAdd(t.Name, t.Type, Traceables.ProviderDomNodeFactoryDuplicate);
-        //            }
-//
-        //            foreach (var t in App.DescribeProviders()
-        //                     .GetProviderInfos(typeof(ElementFragment))) {
-        //                this.elements.TryAdd(t.Name, t.Type, Traceables.ProviderDomNodeFactoryDuplicate);
-        //            }
-        //        }
-
         private class LookupBuffer {
 
             private readonly Dictionary<QualifiedName, IProviderInfo> _elements
@@ -99,8 +78,9 @@ namespace Carbonfrost.Commons.Hxl {
 
             public Type GetValueOrDefault(QualifiedName qn) {
                 IProviderInfo result;
-                if (_elements.TryGetValue(qn, out result))
+                if (_elements.TryGetValue(qn, out result)) {
                     return result.Type;
+                }
 
                 while (_items.MoveNext()) {
                     var t = _items.Current;
