@@ -27,16 +27,16 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
         // TODO Technically, this applies much earlier than IHxlCompilerProcessors normally do (design)
         // suggesting it is not actually a compiler processor
 
-        private readonly IHxlTemplateBuilder _builder;
+        private readonly IServiceProvider _services;
 
-        public ApplyPreprocessorNodes(IHxlTemplateBuilder builder) {
-            this._builder = builder;
+        public ApplyPreprocessorNodes(IServiceProvider services) {
+            _services = services;
         }
 
         public void Preprocess(DomContainer document, IServiceProvider serviceProvider) {
             // Directives only appear at document level
             foreach (HxlProcessingInstruction node in document.ChildNodes.OfType<HxlProcessingInstruction>()) {
-                node.Preprocess_(_builder);
+                node.Preprocess_(_services);
             }
         }
 

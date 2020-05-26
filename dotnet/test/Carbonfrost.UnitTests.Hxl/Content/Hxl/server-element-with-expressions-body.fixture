@@ -4,7 +4,7 @@
             <em>body content</em>
         </test:example>
     </div>
-    
+
 data.properties: >
     inside=man
 

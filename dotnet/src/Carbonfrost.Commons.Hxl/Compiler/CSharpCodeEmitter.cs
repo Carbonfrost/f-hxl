@@ -60,6 +60,10 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
             string code = g.TransformText();
             output.WriteLine(code);
+            output.WriteLine("// r references");
+            foreach (var r in template.ImplicitAssemblyReferences) {
+                output.WriteLine("// r {0}", r);
+            }
 
             if (Metrics.EnableAdvancedParserMetrics) {
                 scope.SourceCodeMetrics(false,

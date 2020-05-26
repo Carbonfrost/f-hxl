@@ -23,7 +23,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Carbonfrost.Commons.Web.Dom;
-using Carbonfrost.Commons.Hxl.Controls;
 
 namespace Carbonfrost.Commons.Hxl {
 

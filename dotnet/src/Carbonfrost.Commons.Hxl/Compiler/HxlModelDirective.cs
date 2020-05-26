@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using Carbonfrost.Commons.Core;
 using Carbonfrost.Commons.Core.Runtime;
 using Carbonfrost.Commons.Hxl.Compiler;
 
@@ -35,7 +36,8 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             get; set;
         }
 
-        protected override void Preprocess(IHxlTemplateBuilder builder) {
+        protected override void Preprocess(IServiceProvider serviceProvider) {
+            var builder = serviceProvider.GetRequiredService<IHxlTemplateBuilder>();
             builder.ModelType = Type;
         }
 

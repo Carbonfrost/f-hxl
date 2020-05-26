@@ -101,31 +101,31 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
             // - Element is an ElementFragment
             protected override DomNode Convert(DomDocument document, DomElement element, IScriptGenerator gen) {
 
-                // TODO This will not work if expressions are in non-string types
-                var myValues = element.Attributes.Select(t => new KeyValuePair<string, object>(t.Name, t.Value));
+                // // TODO This will not work if expressions are in non-string types
+                // var myValues = element.Attributes.Select(t => new KeyValuePair<string, object>(t.Name, t.Value));
 
-                // Locate the property handling inner text
-                // TODO Using inner text (but it could contain markup, which would technically require special handling logic)
-                // TODO Memoize this lookup (performance)
-                foreach (PropertyInfo p in Utility.ReflectGetProperties(element.GetType())) {
-                    if (p.IsDefined(typeof(ValueAttribute))) {
-                        var kvp = new KeyValuePair<string, object>(p.Name, element.InnerText);
-                        myValues = Utility.Cons(kvp, myValues);
-                    }
-                }
+                // // Locate the property handling inner text
+                // // TODO Using inner text (but it could contain markup, which would technically require special handling logic)
+                // // TODO Memoize this lookup (performance)
+                // foreach (PropertyInfo p in Utility.ReflectGetProperties(element.GetType())) {
+                //     if (p.IsDefined(typeof(ValueAttribute))) {
+                //         var kvp = new KeyValuePair<string, object>(p.Name, element.InnerText);
+                //         myValues = Utility.Cons(kvp, myValues);
+                //     }
+                // }
 
-                Activation.Initialize(element, myValues);
+                // Activation.Initialize(element, myValues);
 
                 return element;
             }
 
-            public void OnConversionException(string property, object value, Exception exception) {
-                // If the value looks like an expression, assume that expression parsing will handle it
-                if (System.Convert.ToString(value).Contains("$"))
-                    return;
-                else
-                    throw HxlFailure.FailedToReadServerElement(exception);
-            }
+            // public void OnConversionException(string property, object value, Exception exception) {
+            //     // If the value looks like an expression, assume that expression parsing will handle it
+            //     if (System.Convert.ToString(value).Contains("$"))
+            //         return;
+            //     else
+            //         throw HxlFailure.FailedToReadServerElement(exception);
+            // }
         }
     }
 }

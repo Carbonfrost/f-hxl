@@ -97,6 +97,7 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
                 VisitRender(hxlRenderElement);
                 return;
             }
+            Console.WriteLine($"VisitElement initText: {fragment}");
 
             string varName = CodeUtility.EmitInstantiation(this.manager, this.output, fragment);
             EmitRenderingThunk(this.output, varName, fragment);

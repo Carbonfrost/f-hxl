@@ -22,6 +22,8 @@ using Carbonfrost.Commons.Hxl;
 using Carbonfrost.Commons.Hxl.Compiler;
 using Carbonfrost.Commons.Web.Dom;
 using Carbonfrost.Commons.Spec;
+using Carbonfrost.Commons.Core;
+using Carbonfrost.Commons.Core.Runtime;
 
 namespace Carbonfrost.UnitTests.Hxl.Compiler {
 
@@ -29,11 +31,19 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
 
         // TODO Should check retaining nodes - probably without parsing
 
-        internal static DomElement Parse(string text) {
-            var doc = new DomConverter().Convert(
-                HtmlDocument.ParseXml(text, null),
-                (HxlDocumentFragment) new HxlDocument().CreateDocumentFragment(),
-                (Type t) => {}
+        internal HxlServices Services {
+            get {
+                var sc = new ServiceContainer();
+                sc.AddService(typeof(IDomNodeFactory), HxlDomNodeFactory.Compiler);
+                sc.AddService(typeof(IHxlCompilerReferencePath), new HxlCompilerReferencePath());
+                return new HxlServices(sc);
+            }
+        }
+
+        internal DomElement Parse(string text) {
+            var doc = new DomConverter(Services).Convert(
+                HtmlDocument.ParseXml(text, null)
+                // , (HxlDocumentFragment) new HxlDocument().CreateDocumentFragment()
             );
 
             MarkRetainedNodes.Instance.Preprocess(doc, null);

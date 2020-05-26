@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+using System;
 using System.IO;
 
 using System.Reflection;
@@ -67,12 +68,12 @@ namespace Carbonfrost.Commons.Hxl {
         protected virtual void EmitCode(IHxlTemplateEmitter emitter) {
         }
 
-        internal void Preprocess_(IHxlTemplateBuilder builder) {
+        internal void Preprocess_(IServiceProvider serviceProvider) {
             SyncDataProperty();
-            Preprocess(builder);
+            Preprocess(serviceProvider);
         }
 
-        protected virtual void Preprocess(IHxlTemplateBuilder builder) {
+        protected virtual void Preprocess(IServiceProvider serviceProvider) {
         }
 
         internal void GetInitCode(string variable, IHxlTemplateEmitter context, TextWriter tw) {

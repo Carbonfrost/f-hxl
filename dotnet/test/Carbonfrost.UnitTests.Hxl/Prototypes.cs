@@ -38,6 +38,10 @@ namespace Carbonfrost.UnitTests.Hxl {
             this.Output.Write("example: {0} {1}", A, B);
             RenderBody();
         }
+
+        public override string ToString() {
+            return $"Example A={A} B={B}";
+        }
     }
 
     [HxlAttributeUsage]

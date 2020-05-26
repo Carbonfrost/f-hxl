@@ -39,9 +39,9 @@ namespace Carbonfrost.Commons.Hxl {
         private readonly IDomNodeFactory _nodeFactory;
 
         private readonly IProfilerScope _metrics;
-        private readonly HashSet<Assembly> _implicitAssemblyReferences = new HashSet<Assembly>();
         private HxlDocumentFragment _preparedDocument;
         private readonly HxlCompilerSettings _settings;
+        private readonly IHxlCompilerReferencePath _referencePath = new HxlCompilerReferencePath();
 
         public HxlCompilerSettings Settings {
             get {
@@ -49,9 +49,9 @@ namespace Carbonfrost.Commons.Hxl {
             }
         }
 
-        public ICollection<Assembly> ImplicitAssemblyReferences {
+        internal IEnumerable<Assembly> ImplicitAssemblyReferences {
             get {
-                return _implicitAssemblyReferences;
+                return _referencePath.ImplicitAssemblyReferences;
             }
         }
 
@@ -135,11 +135,11 @@ namespace Carbonfrost.Commons.Hxl {
 
             using (UsingNamespaceResolver()) {
                 // TODO Init emitter.SkipOptimizations from compiler settings
+                session.ImplicitAssemblyReferences.AddMany(ImplicitAssemblyReferences);
 
                 CSharpCodeEmitter emitter = new CSharpCodeEmitter(output, this);
                 emitter.WriteCode(_metrics);
                 output.Flush();
-                session.ImplicitAssemblyReferences.AddMany(ImplicitAssemblyReferences);
             }
 
             _metrics.EndSourceGenerator();
@@ -165,60 +165,8 @@ namespace Carbonfrost.Commons.Hxl {
         }
 
         private HxlDocumentFragment PrepareDocument() {
-            _metrics.StartPreprocessor();
-            ParsedTemplate parsed = this;
-
-            // TODO Consider which services belong here
-            var sp = new ServiceContainer(ServiceProvider.Current);
-
-            var all = CreateCompilerProcessors();
-            var converter = new DomConverter();
-            var myDoc = converter.Convert(parsed.SourceDocument,
-                                          NewDocument(),
-                                          t => _implicitAssemblyReferences.Add(t.GetTypeInfo().Assembly));
-
-            foreach (var c in all) {
-                c.Preprocess(myDoc, sp);
-            }
-
-            // TODO Combine adjacent text uses (performance)
-            // TODO ToArray() is wasteful (performance)
-
-            // Convert document
-            HxlDocumentFragment result = NewDocument();
-            foreach (var m in myDoc.ChildNodes.ToArray()) {
-                var conv = HxlCompilerConverter.ChooseConverter(m);
-                conv.ConvertAndAppend(result, m, CSharpScriptGenerator.Instance);
-            }
-
-            _metrics.EndPreprocessor();
-
-            // TODO This is a compiler settings property
-            bool skipOptimizations = false;
-            _metrics.TemplateOptimizerStarting("cs", !skipOptimizations);
-
-            if (!skipOptimizations) {
-                _metrics.StartOptimizer();
-                OptimizeRenderIslands.Rewrite(result);
-                _metrics.EndOptimizer();
-            }
-
-            return result;
-        }
-
-        private IEnumerable<IHxlCompilerProcessor> CreateCompilerProcessors() {
-            return new IHxlCompilerProcessor[] {
-                new ApplyPreprocessorNodes(this),
-                RewriteLanguageAttributes.Instance,
-                RewriteExpressionSyntax.Instance,
-                MarkRetainedNodes.Instance,
-                RemoveNonSignificantWhitespace.Instance,
-            };
-        }
-
-        private HxlDocumentFragment NewDocument() {
-            var factory = new HxlProviderFactory(_nodeFactory);
-            return (HxlDocumentFragment) new HxlDocument(factory).CreateDocumentFragment();
+            var pp = new PreparedDocumentBuilder(this, _nodeFactory, _referencePath);
+            return pp.Prepare(SourceDocument, _metrics);
         }
     }
 

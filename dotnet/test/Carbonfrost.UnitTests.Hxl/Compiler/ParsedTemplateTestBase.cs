@@ -211,7 +211,7 @@ namespace Carbonfrost.UnitTests.Hxl.Compiler {
                 string tempFile = WriteCompilerOutput(actual, expected);
                 string message = string.Format("Comparison failed: {0}", tempFile);
                 // Console.WriteLine(message);
-                Assert.Equal(expected, actual);
+                Assert.Equal(expected, actual, message);
             }
 
             // Check lines of generated source

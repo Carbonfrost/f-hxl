@@ -40,7 +40,7 @@ namespace Carbonfrost.Commons.Hxl {
 
         public static PropertyInfo ReflectGetProperty(Type type, string propertyName) {
             var pd = type.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
-            if (pd.GetIndexParameters().Length > 0) {
+            if (pd == null || pd.GetIndexParameters().Length > 0) {
                 return null;
             }
 

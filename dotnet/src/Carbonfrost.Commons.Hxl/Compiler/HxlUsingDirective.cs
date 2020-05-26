@@ -19,6 +19,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Carbonfrost.Commons.Core;
 using Carbonfrost.Commons.Hxl.Compiler;
 
 namespace Carbonfrost.Commons.Hxl.Compiler {
@@ -31,7 +32,8 @@ namespace Carbonfrost.Commons.Hxl.Compiler {
 
         public HxlUsingDirective() : base("using") {}
 
-        protected override void Preprocess(IHxlTemplateBuilder builder) {
+        protected override void Preprocess(IServiceProvider serviceProvider) {
+            var builder = serviceProvider.GetRequiredService<IHxlTemplateBuilder>();
             // TODO Should be one or the other
             if (!string.IsNullOrEmpty(Namespace))
                 builder.Imports.Add(Namespace);
