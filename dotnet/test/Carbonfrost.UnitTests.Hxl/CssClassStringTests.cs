@@ -1,13 +1,11 @@
 //
-// - CssClassStringTests.cs -
-//
-// Copyright 2014 Carbonfrost Systems, Inc. (http://carbonfrost.com)
+// Copyright 2014, 2020 Carbonfrost Systems, Inc. (https://carbonfrost.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +15,6 @@
 //
 
 using System;
-using System.Linq;
 using System.Net.Sockets;
 using Carbonfrost.Commons.Hxl;
 using Carbonfrost.Commons.Spec;
@@ -34,6 +31,32 @@ namespace Carbonfrost.UnitTests.Hxl {
         [Fact]
         public void ToString_should_convert_enum() {
             Assert.Equal("tcp socket-option-level", new CssClassString(SocketOptionLevel.Tcp).ToString());
+        }
+
+        [Theory]
+        [InlineData("p", "tcp")]
+        [InlineData("pp", "tcp-socket-option-level")]
+        [InlineData("ppp", "tcp-socket-option-level tcp")]
+        [InlineData("PP", "socket-option-level-tcp")]
+        [InlineData("C", "socket-option-level")]
+        [InlineData("CPP", "socket-option-level socket-option-level-tcp")]
+        [InlineData("G", "tcp socket-option-level")]
+        [InlineData("  G", "tcp socket-option-level", Name = "general ignore ws")]
+        [InlineData("PP C", "socket-option-level-tcp socket-option-level", Name = "ignore ws")]
+        public void ToString_should_convert_enum_using_format(string format, string expected) {
+            Assert.Equal(
+                expected,
+                new CssClassString(SocketOptionLevel.Tcp).ToString(format)
+            );
+        }
+
+        [Theory]
+        [InlineData("Gp", Name = "can't combine general format")]
+        [InlineData("Z")]
+        public void ToString_should_throw_on_invalid_format_string(string format) {
+            Assert.Throws<FormatException>(
+                () => new CssClassString(SocketOptionLevel.Tcp).ToString(format)
+            );
         }
 
         [Fact]
